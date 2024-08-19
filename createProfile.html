@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DASHMIN - Bootstrap Admin Template</title>
+    <title>DASHMIN - Create Profile</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -26,6 +26,8 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
@@ -62,31 +64,25 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link"><i
+                    <a href="index.html" class="nav-item nav-link "><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-laptop me-2"></i>Elements</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="button.html" class="dropdown-item">Buttons</a>
-                            <a href="typography.html" class="dropdown-item">Typography</a>
-                            <a href="element.html" class="dropdown-item">Other Elements</a>
-                        </div>
-                    </div>
-                    <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                    <a href="form.html" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>Forms</a>
-                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
-                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="far fa-file-alt me-2"></i>Pages</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="signin.html" class="dropdown-item">Sign In</a>
-                            <a href="signup.html" class="dropdown-item">Sign Up</a>
-                            <a href="404.html" class="dropdown-item">404 Error</a>
-                            <a href="blank.html" class="dropdown-item">Blank Page</a>
-                        </div>
-                    </div>
+
+                    <a href="createProfile.html" class="nav-item nav-link active"><i class="fa fa-user-plus me-2"></i>Create
+                        Profile</a>
+                    <a href="identity_verification.html" class="nav-item nav-link"><i
+                            class="fa fa-id-card me-2"></i>Verify Account</a>
+
+
+                    <a href="create_packages.html" class="nav-item nav-link"><i class="fa fa-box me-2"></i>Create
+                        Packages</a>
+
+                    <a href="my_wallet.html" class="nav-item nav-link"><i class="fa fa-wallet me-2"></i>My Wallet</a>
+
+                    <a href="accountSettings.html" class="nav-item nav-link"><i class="fa fa-cogs me-2"></i>Account
+                        Settings</a>
+                    <a href="support.html" class="nav-item nav-link"><i class="fa fa-cogs me-2"></i>Support
+                    </a>
+
                 </div>
             </nav>
         </div>
@@ -107,83 +103,15 @@
                     <input class="form-control border-0" type="search" placeholder="Search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt=""
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt=""
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt=""
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notificatin</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all notifications</a>
-                        </div>
-                    </div>
+
+
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
                                 style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
-                        </div>
+
                     </div>
                 </div>
             </nav>
@@ -201,185 +129,342 @@
                                     <img src="https://via.placeholder.com/150" alt="Profile Picture"
                                         class="profile-pic">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="fullName" class="form-label">Full Name</label>
+                                <!-- Full Name -->
+                                <div class="mb-3" style="margin-bottom: 1rem;">
+                                    <label for="fullName" class="form-label"
+                                        style="display: block; margin-bottom: 0.5rem; font-weight: bold;">
+                                        <i class="fa fa-user" style="margin-right: 0.5rem;"></i> Full Name
+                                    </label>
                                     <input type="text" class="form-control" id="fullName"
-                                        placeholder="Enter your full name">
+                                        placeholder="Enter your full name"
+                                        style="border-radius: .375rem; border: 1px solid #ced4da; padding: .375rem .75rem; font-size: 1rem;">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="username" class="form-label">Username or Nickname</label>
+
+                                <!-- Username or Nickname -->
+                                <div class="mb-3" style="margin-bottom: 1rem;">
+                                    <label for="username" class="form-label"
+                                        style="display: block; margin-bottom: 0.5rem; font-weight: bold;">
+                                        <i class="fa fa-user-tag" style="margin-right: 0.5rem;"></i> Username or
+                                        Nickname
+                                    </label>
                                     <input type="text" class="form-control" id="username"
-                                        placeholder="Enter your username or nickname">
+                                        placeholder="Enter your username or nickname"
+                                        style="border-radius: .375rem; border: 1px solid #ced4da; padding: .375rem .75rem; font-size: 1rem;">
                                 </div>
-                                   <!-- Phone Number -->
-                                   <div class="mb-3">
-                                    <label for="phoneNumber" class="form-label">Phone Number</label>
+
+                                <!-- Phone Number -->
+                                <div class="mb-3" style="margin-bottom: 1rem;">
+                                    <label for="phoneNumber" class="form-label"
+                                        style="display: block; margin-bottom: 0.5rem; font-weight: bold;">
+                                        <i class="fa fa-phone" style="margin-right: 0.5rem;"></i> Phone Number
+                                    </label>
                                     <input type="tel" class="form-control" id="phoneNumber"
-                                        placeholder="Enter your phone number">
+                                        placeholder="Enter your phone number"
+                                        style="border-radius: .375rem; border: 1px solid #ced4da; padding: .375rem .75rem; font-size: 1rem;">
                                 </div>
+
                                 <!-- Location -->
-                                <div class="mb-3">
-                                    <label for="location" class="form-label">Location</label>
+                                <div class="mb-3" style="margin-bottom: 1rem;">
+                                    <label for="location" class="form-label"
+                                        style="display: block; margin-bottom: 0.5rem; font-weight: bold;">
+                                        <i class="fa fa-map-marker-alt" style="margin-right: 0.5rem;"></i> Location
+                                    </label>
                                     <input type="text" class="form-control" id="location"
-                                        placeholder="Enter your city or country">
+                                        placeholder="Enter your city or country"
+                                        style="border-radius: .375rem; border: 1px solid #ced4da; padding: .375rem .75rem; font-size: 1rem;">
                                 </div>
+
+
                                 <!-- Social Media Handles -->
 
                                 <div class="mb-3">
-                                    <label for="socialMedia" class="form-label">
+                                    <label for="socialMedia" class="form-label"
+                                        style="display: block; margin-bottom: 0.5rem;">
                                         <i class="fa fa-share-alt"></i> Social Media Links
-                                    </label> <input type="text" class="form-control mb-2" id="instagram"
-                                        placeholder="Instagram">
-                                    <input type="text" class="form-control mb-2" id="twitter" placeholder="Twitter">
-                                    <input type="text" class="form-control mb-2" id="facebook" placeholder="Facebook">
-                                    <input type="text" class="form-control mb-2" id="linkedin" placeholder="LinkedIn">
-                                    <input type="text" class="form-control mb-2" id="tiktok" placeholder="TikTok">
+                                    </label>
+                                    <div class="input-group mb-2" style="display: flex; align-items: center;">
+                                        <span class="input-group-text"
+                                            style="background-color: #f1f1f1; border: 1px solid #ced4da; border-radius: .375rem; color: #6c757d; display: flex; align-items: center; padding: 0.5rem;">
+                                            <i class="fab fa-instagram" style="font-size: 1.2rem;"></i>
+                                        </span>
+                                        <input type="text" class="form-control" id="instagram"
+                                            placeholder="Instagram (e.g., @yourusername)" style="border-left: none;">
+                                    </div>
+                                    <div class="input-group mb-2" style="display: flex; align-items: center;">
+                                        <span class="input-group-text"
+                                            style="background-color: #f1f1f1; border: 1px solid #ced4da; border-radius: .375rem; color: #6c757d; display: flex; align-items: center; padding: 0.5rem;">
+                                            <i class="fab fa-twitter" style="font-size: 1.2rem;"></i>
+                                        </span>
+                                        <input type="text" class="form-control" id="twitter"
+                                            placeholder="Twitter (e.g., @yourusername)" style="border-left: none;">
+                                    </div>
+                                    <div class="input-group mb-2" style="display: flex; align-items: center;">
+                                        <span class="input-group-text"
+                                            style="background-color: #f1f1f1; border: 1px solid #ced4da; border-radius: .375rem; color: #6c757d; display: flex; align-items: center; padding: 0.5rem;">
+                                            <i class="fab fa-facebook-f" style="font-size: 1.2rem;"></i>
+                                        </span>
+                                        <input type="text" class="form-control" id="facebook"
+                                            placeholder="Facebook (e.g., facebook.com/yourpage)"
+                                            style="border-left: none;">
+                                    </div>
+                                    <div class="input-group mb-2" style="display: flex; align-items: center;">
+                                        <span class="input-group-text"
+                                            style="background-color: #f1f1f1; border: 1px solid #ced4da; border-radius: .375rem; color: #6c757d; display: flex; align-items: center; padding: 0.5rem;">
+                                            <i class="fab fa-linkedin-in" style="font-size: 1.2rem;"></i>
+                                        </span>
+                                        <input type="text" class="form-control" id="linkedin"
+                                            placeholder="LinkedIn (e.g., linkedin.com/in/yourprofile)"
+                                            style="border-left: none;">
+                                    </div>
+                                    <div class="input-group mb-2" style="display: flex; align-items: center;">
+                                        <span class="input-group-text"
+                                            style="background-color: #f1f1f1; border: 1px solid #ced4da; border-radius: .375rem; color: #6c757d; display: flex; align-items: center; padding: 0.5rem;">
+                                            <i class="fab fa-tiktok" style="font-size: 1.2rem;"></i>
+                                        </span>
+                                        <input type="text" class="form-control" id="tiktok"
+                                            placeholder="TikTok (e.g., @yourusername)" style="border-left: none;">
+                                    </div>
                                 </div>
+
+
                                 <!-- Portfolio or Website -->
-                                <div class="mb-3">
-                                    <label for="portfolio" class="form-label">Portfolio or Website</label>
+                                <div class="mb-3" style="margin-bottom: 1rem;">
+                                    <label for="portfolio" class="form-label"
+                                        style="display: block; margin-bottom: 0.5rem; font-weight: bold;">
+                                        <i class="fa fa-link" style="margin-right: 0.5rem;"></i> Portfolio or Website
+                                    </label>
                                     <input type="url" class="form-control" id="portfolio"
-                                        placeholder="Enter your portfolio or website URL">
+                                        placeholder="Enter your portfolio or website URL"
+                                        style="border-radius: .375rem; border: 1px solid #ced4da; padding: .375rem .75rem; font-size: 1rem;">
                                 </div>
+
 
 
 
 
                                 <!-- Content Categories -->
                                 <div class="container mt-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">
-                                            <i class="fa fa-tags"></i> Content Categories
+                                    <div class="mb-3" style="margin-bottom: 1rem;">
+                                        <label class="form-label"
+                                            style="display: block; margin-bottom: 0.5rem; font-weight: bold;">
+                                            <i class="fa fa-tags" style="margin-right: 0.5rem;"></i> Content Categories
                                         </label>
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="beauty" name="contentCategories" value="beauty">
-                                                    <label class="form-check-label" for="beauty">Beauty</label>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="beauty"
+                                                        name="contentCategories" value="beauty">
+                                                    <label class="form-check-label" for="beauty">
+                                                        <i class="fa fa-magic" style="margin-right: 0.5rem;"></i> Beauty
+                                                    </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="fashion" name="contentCategories" value="fashion">
-                                                    <label class="form-check-label" for="fashion">Fashion</label>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="fashion"
+                                                        name="contentCategories" value="fashion">
+                                                    <label class="form-check-label" for="fashion">
+                                                        <i class="fa fa-tshirt" style="margin-right: 0.5rem;"></i>
+                                                        Fashion
+                                                    </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="tech" name="contentCategories" value="tech">
-                                                    <label class="form-check-label" for="tech">Technology</label>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="tech"
+                                                        name="contentCategories" value="tech">
+                                                    <label class="form-check-label" for="tech">
+                                                        <i class="fa fa-laptop" style="margin-right: 0.5rem;"></i>
+                                                        Technology
+                                                    </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="lifestyle" name="contentCategories" value="lifestyle">
-                                                    <label class="form-check-label" for="lifestyle">Lifestyle</label>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="lifestyle"
+                                                        name="contentCategories" value="lifestyle">
+                                                    <label class="form-check-label" for="lifestyle">
+                                                        <i class="fa fa-sun" style="margin-right: 0.5rem;"></i>
+                                                        Lifestyle
+                                                    </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="travel" name="contentCategories" value="travel">
-                                                    <label class="form-check-label" for="travel">Travel</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="food" name="contentCategories" value="food">
-                                                    <label class="form-check-label" for="food">Food</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="fitness" name="contentCategories" value="fitness">
-                                                    <label class="form-check-label" for="fitness">Fitness</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="gaming" name="contentCategories" value="gaming">
-                                                    <label class="form-check-label" for="gaming">Gaming</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="education" name="contentCategories" value="education">
-                                                    <label class="form-check-label" for="education">Education</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="finance" name="contentCategories" value="finance">
-                                                    <label class="form-check-label" for="finance">Finance</label>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="travel"
+                                                        name="contentCategories" value="travel">
+                                                    <label class="form-check-label" for="travel">
+                                                        <i class="fa fa-plane" style="margin-right: 0.5rem;"></i> Travel
+                                                    </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="music" name="contentCategories" value="music">
-                                                    <label class="form-check-label" for="music">Music</label>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="food"
+                                                        name="contentCategories" value="food">
+                                                    <label class="form-check-label" for="food">
+                                                        <i class="fa fa-utensils" style="margin-right: 0.5rem;"></i>
+                                                        Food
+                                                    </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="health" name="contentCategories" value="health">
-                                                    <label class="form-check-label" for="health">Health & Wellness</label>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="fitness"
+                                                        name="contentCategories" value="fitness">
+                                                    <label class="form-check-label" for="fitness">
+                                                        <i class="fa fa-dumbbell" style="margin-right: 0.5rem;"></i>
+                                                        Fitness
+                                                    </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="art" name="contentCategories" value="art">
-                                                    <label class="form-check-label" for="art">Art & Design</label>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="gaming"
+                                                        name="contentCategories" value="gaming">
+                                                    <label class="form-check-label" for="gaming">
+                                                        <i class="fa fa-gamepad" style="margin-right: 0.5rem;"></i>
+                                                        Gaming
+                                                    </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="automotive" name="contentCategories" value="automotive">
-                                                    <label class="form-check-label" for="automotive">Automotive</label>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="education"
+                                                        name="contentCategories" value="education">
+                                                    <label class="form-check-label" for="education">
+                                                        <i class="fa fa-book" style="margin-right: 0.5rem;"></i>
+                                                        Education
+                                                    </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="home" name="contentCategories" value="home">
-                                                    <label class="form-check-label" for="home">Home & Decor</label>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="finance"
+                                                        name="contentCategories" value="finance">
+                                                    <label class="form-check-label" for="finance">
+                                                        <i class="fa fa-dollar-sign" style="margin-right: 0.5rem;"></i>
+                                                        Finance
+                                                    </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="photography" name="contentCategories" value="photography">
-                                                    <label class="form-check-label" for="photography">Photography</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="music"
+                                                        name="contentCategories" value="music">
+                                                    <label class="form-check-label" for="music">
+                                                        <i class="fa fa-music" style="margin-right: 0.5rem;"></i> Music
+                                                    </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="pets" name="contentCategories" value="pets">
-                                                    <label class="form-check-label" for="pets">Pets</label>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="health"
+                                                        name="contentCategories" value="health">
+                                                    <label class="form-check-label" for="health">
+                                                        <i class="fa fa-heartbeat" style="margin-right: 0.5rem;"></i>
+                                                        Health & Wellness
+                                                    </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="entertainment" name="contentCategories" value="entertainment">
-                                                    <label class="form-check-label" for="entertainment">Entertainment</label>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="art"
+                                                        name="contentCategories" value="art">
+                                                    <label class="form-check-label" for="art">
+                                                        <i class="fa fa-paint-brush" style="margin-right: 0.5rem;"></i>
+                                                        Art & Design
+                                                    </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="sports" name="contentCategories" value="sports">
-                                                    <label class="form-check-label" for="sports">Sports</label>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="automotive"
+                                                        name="contentCategories" value="automotive">
+                                                    <label class="form-check-label" for="automotive">
+                                                        <i class="fa fa-car" style="margin-right: 0.5rem;"></i>
+                                                        Automotive
+                                                    </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="parenting" name="contentCategories" value="parenting">
-                                                    <label class="form-check-label" for="parenting">Parenting</label>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="home"
+                                                        name="contentCategories" value="home">
+                                                    <label class="form-check-label" for="home">
+                                                        <i class="fa fa-home" style="margin-right: 0.5rem;"></i> Home &
+                                                        Decor
+                                                    </label>
+                                                </div>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="photography"
+                                                        name="contentCategories" value="photography">
+                                                    <label class="form-check-label" for="photography">
+                                                        <i class="fa fa-camera" style="margin-right: 0.5rem;"></i>
+                                                        Photography
+                                                    </label>
+                                                </div>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="pets"
+                                                        name="contentCategories" value="pets">
+                                                    <label class="form-check-label" for="pets">
+                                                        <i class="fa fa-paw" style="margin-right: 0.5rem;"></i> Pets
+                                                    </label>
+                                                </div>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="entertainment"
+                                                        name="contentCategories" value="entertainment">
+                                                    <label class="form-check-label" for="entertainment">
+                                                        <i class="fa fa-film" style="margin-right: 0.5rem;"></i>
+                                                        Entertainment
+                                                    </label>
+                                                </div>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="sports"
+                                                        name="contentCategories" value="sports">
+                                                    <label class="form-check-label" for="sports">
+                                                        <i class="fa fa-futbol" style="margin-right: 0.5rem;"></i>
+                                                        Sports
+                                                    </label>
+                                                </div>
+                                                <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                    <input class="form-check-input" type="checkbox" id="parenting"
+                                                        name="contentCategories" value="parenting">
+                                                    <label class="form-check-label" for="parenting">
+                                                        <i class="fa fa-child" style="margin-right: 0.5rem;"></i>
+                                                        Parenting
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Bio or Introduction -->
                                 <div class="mb-3">
-                                    <label for="bio" class="form-label">Bio or Introduction</label>
+                                    <label for="bio" class="form-label" style="display: flex; align-items: center;">
+                                        <i class="fa fa-user" style="margin-right: 0.5rem;"></i> Bio or Introduction
+                                    </label>
                                     <textarea class="form-control" id="bio" rows="3"
                                         placeholder="Write a short paragraph about yourself and your work"></textarea>
                                 </div>
 
 
+
                                 <!-- Experience Level -->
                                 <div class="mb-3">
-                                    <label for="experienceLevel" class="form-label">Experience Level</label>
+                                    <label for="experienceLevel" class="form-label"
+                                        style="display: flex; align-items: center;">
+                                        <i class="fa fa-briefcase" style="margin-right: 0.5rem;"></i> Experience Level
+                                    </label>
                                     <input type="text" class="form-control" id="experienceLevel"
                                         placeholder="Enter how long you've been creating content">
                                 </div>
 
-                                <!-- Preferred Platforms -->
+
                                 <div class="mb-3">
-                                    <label class="form-label"><i class="fa fa-thumbs-up"></i> Preferred
-                                        Platforms</label>
+                                    <label class="form-label" style="display: flex; align-items: center;">
+                                        <i class="fa fa-thumbs-up" style="margin-right: 0.5rem;"></i> Preferred
+                                        Platforms
+                                    </label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="Facebook"
                                             id="platformFacebook">
-                                        <label class="form-check-label" for="platformFacebook">
-                                            <i class="fa fa-facebook"></i> Facebook
+                                        <label class="form-check-label" for="platformFacebook"
+                                            style="display: flex; align-items: center;">
+                                            <i class="fa fa-facebook" style="margin-right: 0.5rem;"></i> Facebook
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="Instagram"
                                             id="platformInstagram">
-                                        <label class="form-check-label" for="platformInstagram">
-                                            <i class="fa fa-instagram"></i> Instagram
+                                        <label class="form-check-label" for="platformInstagram"
+                                            style="display: flex; align-items: center;">
+                                            <i class="fa fa-instagram" style="margin-right: 0.5rem;"></i> Instagram
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="TikTok"
                                             id="platformTikTok">
-                                        <label class="form-check-label" for="platformTikTok">
-                                            <i class="fa fa-music"></i> TikTok
+                                        <label class="form-check-label" for="platformTikTok"
+                                            style="display: flex; align-items: center;">
+                                            <i class="fa fa-tiktok" style="margin-right: 0.5rem;"></i> TikTok
                                         </label>
                                     </div>
                                 </div>
@@ -389,77 +474,81 @@
                             </form>
                         </div>
                     </div>
-            <!-- Form End -->
-            <div class="container mt-5">
-                <h4 class="mb-4">Upload Your Videos (15 seconds each)</h4>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Upload Video 1</h5>
-                                <form id="videoUploadForm">
-                                    <div class="mb-3">
-                                        <input type="file" class="form-control" id="videoUpload1" accept="video/*" onchange="validateVideo(this)">
-                                        <div class="form-text mt-2">Video must be up to 15 seconds long.</div>
+                    <!-- Form End -->
+                    <div class="container mt-5">
+                        <h4 class="mb-4"><i class="fa fa-video"></i> Upload Your Reels (15 seconds each)</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Upload Reel 1</h5>
+                                        <form id="videoUploadForm">
+                                            <div class="mb-3">
+                                                <input type="file" class="form-control" id="videoUpload1"
+                                                    accept="video/*" onchange="validateVideo(this)">
+                                                <div class="form-text mt-2">Video must be up to 15 seconds long.</div>
+                                            </div>
+                                            <h5 class="card-title">Upload Reel 2</h5>
+                                            <div class="mb-3">
+                                                <input type="file" class="form-control" id="videoUpload2"
+                                                    accept="video/*" onchange="validateVideo(this)">
+                                                <div class="form-text mt-2">Video must be up to 15 seconds long.</div>
+                                            </div>
+                                            <h5 class="card-title">Upload Reel 3</h5>
+                                            <div class="mb-3">
+                                                <input type="file" class="form-control" id="videoUpload3"
+                                                    accept="video/*" onchange="validateVideo(this)">
+                                                <div class="form-text mt-2">Video must be up to 15 seconds long.</div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Submit Videos</button>
+                                        </form>
                                     </div>
-                                    <h5 class="card-title">Upload Video 2</h5>
-                                    <div class="mb-3">
-                                        <input type="file" class="form-control" id="videoUpload2" accept="video/*" onchange="validateVideo(this)">
-                                        <div class="form-text mt-2">Video must be up to 15 seconds long.</div>
-                                    </div>
-                                    <h5 class="card-title">Upload Video 3</h5>
-                                    <div class="mb-3">
-                                        <input type="file" class="form-control" id="videoUpload3" accept="video/*" onchange="validateVideo(this)">
-                                        <div class="form-text mt-2">Video must be up to 15 seconds long.</div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Submit Videos</button>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            
-            <!-- Optional: Add Bootstrap CSS for styling -->
-            <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-            
+
+                    <!-- Optional: Add Bootstrap CSS for styling -->
+                    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css"
+                        rel="stylesheet">
 
 
-            <!-- Footer Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-light rounded-top p-4">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">SlilconSloultions</a>, All Right Reserved.
-                        </div>
-                        <div class="col-12 col-sm-6 text-center text-sm-end">
-                            Designed By <a href="https://SlilconSloultions.com">SlilconSloultions</a>
+
+                    <!-- Footer Start -->
+                    <div class="container-fluid pt-4 px-4">
+                        <div class="bg-light rounded-top p-4">
+                            <div class="row">
+                                <div class="col-12 col-sm-6 text-center text-sm-start">
+                                    &copy; <a href="#">SlilconSloultions</a>, All Right Reserved.
+                                </div>
+                                <div class="col-12 col-sm-6 text-center text-sm-end">
+                                    Designed By <a href="https://SlilconSloultions.com">SlilconSloultions</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <!-- Footer End -->
                 </div>
+                <!-- Content End -->
+
+
+                <!-- Back to Top -->
+                <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
             </div>
-            <!-- Footer End -->
-        </div>
-        <!-- Content End -->
 
+            <!-- JavaScript Libraries -->
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="lib/chart/chart.min.js"></script>
+            <script src="lib/easing/easing.min.js"></script>
+            <script src="lib/waypoints/waypoints.min.js"></script>
+            <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+            <script src="lib/tempusdominus/js/moment.min.js"></script>
+            <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+            <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    </div>
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+            <!-- Template Javascript -->
+            <script src="js/main.js"></script>
 </body>
 
 </html>
