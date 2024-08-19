@@ -108,9 +108,7 @@
                                 style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">                           
                             <a href="#" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
@@ -181,35 +179,55 @@
                         </div>
                     </div>
 
-                    <!-- Request Payout -->
-                    <div class="col-md-6">
-                        <div class="card shadow-sm mb-4">
-                            <div class="card-body">
-                                <h5 class="card-title">Request Payout</h5>
-                                <form id="payoutRequestForm">
-                                    <div class="mb-3">
-                                        <label for="amount" class="form-label">Amount</label>
-                                        <input type="number" class="form-control" id="amount" placeholder="Enter amount"
-                                            required>
-                                    </div>
+                <!-- Request Payout -->
+<div class="col-md-6">
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Request Payout</h5>
+            <form id="payoutRequestForm">
+                <div class="mb-3">
+                    <label for="amount" class="form-label">Amount</label>
+                    <input type="number" class="form-control" id="amount" placeholder="Enter amount" required>
+                </div>
 
-                                    <div class="mb-3">
-                                        <label for="method" class="form-label">Payment Method</label>
-                                        <select class="form-select" id="method" required>
-                                            <option value="" disabled selected>Select method</option>
-                                            <option value="paypal">Wallets</option>
-                                            <option value="paypal">Instapay</option>
+                <div class="mb-3">
+                    <label for="method" class="form-label">Payment Method</label>
+                    <select class="form-select" id="method" required>
+                        <option value="" disabled selected>Select method</option>
+                        <option value="wallets">Wallets</option>
+                        <option value="instapay">Instapay</option>
+                        <option value="bank">Bank Transfer</option>
+                    </select>
+                </div>
 
-                                            <option value="bank">Bank Transfer</option>
-                                        </select>
+                <!-- Instapay and Wallets Input -->
+                <div class="mb-3" id="instapayWalletInput" style="display: none;">
+                    <label for="instapayWalletNumber" class="form-label">Enter Number</label>
+                    <input type="text" class="form-control" id="instapayWalletNumber" placeholder="Enter your number">
+                </div>
 
-                                    </div>
-
-                                    <button type="submit" class="btn btn-primary">Request Payout</button>
-                                </form>
-                            </div>
-                        </div>
+                <!-- Bank Transfer Inputs -->
+                <div id="bankTransferInputs" style="display: none;">
+                    <div class="mb-3">
+                        <label for="accountName" class="form-label">Account Name</label>
+                        <input type="text" class="form-control" id="accountName" placeholder="Enter account name">
                     </div>
+                    <div class="mb-3">
+                        <label for="accountNumber" class="form-label">Account Number</label>
+                        <input type="text" class="form-control" id="accountNumber" placeholder="Enter account number">
+                    </div>
+                    <div class="mb-3">
+                        <label for="bankName" class="form-label">Bank Name</label>
+                        <input type="text" class="form-control" id="bankName" placeholder="Enter bank name">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Request Payout</button>
+            </form>
+        </div>
+    </div>
+</div>
+
                 </div>
             </div>
 
