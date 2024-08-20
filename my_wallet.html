@@ -51,14 +51,14 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle profile-pic" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Admin</span>
+                        <h6 class="mb-0 userEmail">Abdelrhman</h6>
+                        <span>Content Creator</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -104,9 +104,9 @@
                     
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
+                            <img class="profile-pic rounded-circle me-lg-2" src="img/user.jpg" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <span class="d-none userEmail d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">                           
                             <a href="#" class="dropdown-item">Log Out</a>
@@ -186,44 +186,51 @@
             <h5 class="card-title">Request Payout</h5>
             <form id="payoutRequestForm">
                 <div class="mb-3">
-                    <label for="amount" class="form-label">Amount</label>
-                    <input type="number" class="form-control" id="amount" placeholder="Enter amount" required>
+                    <label for="payoutAmount" class="form-label">Amount</label>
+                    <input type="number" class="form-control" id="payoutAmount" placeholder="Enter amount" required>
                 </div>
-
+            
                 <div class="mb-3">
-                    <label for="method" class="form-label">Payment Method</label>
-                    <select class="form-select" id="method" required>
+                    <label for="paymentMethod" class="form-label">Payment Method</label>
+                    <select class="form-select" id="paymentMethod" required>
                         <option value="" disabled selected>Select method</option>
                         <option value="wallets">Wallets</option>
                         <option value="instapay">Instapay</option>
                         <option value="bank">Bank Transfer</option>
                     </select>
                 </div>
-
-                <!-- Instapay and Wallets Input -->
-                <div class="mb-3" id="instapayWalletInput" style="display: none;">
-                    <label for="instapayWalletNumber" class="form-label">Enter Number</label>
-                    <input type="text" class="form-control" id="instapayWalletNumber" placeholder="Enter your number">
+            
+                <!-- Instapay Input -->
+                <div class="mb-3" id="instapayInput" style="display: none;">
+                    <label for="instapayNumber" class="form-label">Instapay Number</label>
+                    <input type="text" class="form-control" id="instapayNumber" placeholder="Enter your Instapay number">
                 </div>
-
+            
+                <!-- Wallets Input -->
+                <div class="mb-3" id="walletInput" style="display: none;">
+                    <label for="walletNumber" class="form-label">Wallet Number</label>
+                    <input type="text" class="form-control" id="walletNumber" placeholder="Enter your wallet number">
+                </div>
+            
                 <!-- Bank Transfer Inputs -->
-                <div id="bankTransferInputs" style="display: none;">
+                <div id="bankInputs" style="display: none;">
                     <div class="mb-3">
-                        <label for="accountName" class="form-label">Account Name</label>
-                        <input type="text" class="form-control" id="accountName" placeholder="Enter account name">
+                        <label for="bankAccountName" class="form-label">Account Name</label>
+                        <input type="text" class="form-control" id="bankAccountName" placeholder="Enter account name">
                     </div>
                     <div class="mb-3">
-                        <label for="accountNumber" class="form-label">Account Number</label>
-                        <input type="text" class="form-control" id="accountNumber" placeholder="Enter account number">
+                        <label for="bankAccountNumber" class="form-label">Account Number</label>
+                        <input type="text" class="form-control" id="bankAccountNumber" placeholder="Enter account number">
                     </div>
                     <div class="mb-3">
                         <label for="bankName" class="form-label">Bank Name</label>
                         <input type="text" class="form-control" id="bankName" placeholder="Enter bank name">
                     </div>
                 </div>
-
+            
                 <button type="submit" class="btn btn-primary">Request Payout</button>
             </form>
+            
         </div>
     </div>
 </div>
@@ -263,9 +270,68 @@
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const paymentMethodSelect = document.getElementById("paymentMethod");
+    const instapayInput = document.getElementById("instapayInput");
+    const walletInput = document.getElementById("walletInput");
+    const bankInputs = document.getElementById("bankInputs");
 
+    function updateInputFields() {
+        const selectedMethod = paymentMethodSelect.value;
+
+        // Hide all sections initially
+        instapayInput.style.display = "none";
+        walletInput.style.display = "none";
+        bankInputs.style.display = "none";
+
+        // Show the appropriate section based on the selected method
+        if (selectedMethod === "instapay") {
+            instapayInput.style.display = "block";
+        } else if (selectedMethod === "wallets") {
+            walletInput.style.display = "block";
+        } else if (selectedMethod === "bank") {
+            bankInputs.style.display = "block";
+        }
+    }
+
+    // Attach change event listener to the select element
+    paymentMethodSelect.addEventListener("change", updateInputFields);
+
+    // Call the function initially in case the selected value is already set
+    updateInputFields();
+});
+
+
+// Optional: Form validation to ensure that the correct fields are filled out before submission
+document.getElementById("payoutRequestForm").addEventListener("submit", function(event) {
+    const selectedMethod = document.getElementById("method").value;
+    const instapayWalletNumber = document.getElementById("instapayWalletNumber").value;
+    const accountName = document.getElementById("accountName").value;
+    const accountNumber = document.getElementById("accountNumber").value;
+    const bankName = document.getElementById("bankName").value;
+
+    // Validate based on selected method
+    if (selectedMethod === "instapay" || selectedMethod === "wallets") {
+        if (!instapayWalletNumber) {
+            alert("Please enter your Instapay or Wallet number.");
+            event.preventDefault();
+        }
+    } else if (selectedMethod === "bank") {
+        if (!accountName || !accountNumber || !bankName) {
+            alert("Please fill out all bank transfer details.");
+            event.preventDefault();
+        }
+    }
+});
+
+    </script>
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script type="module">
+        import {  checkifsingedin} from "./js/firebase.js";
+        window.checkifsingedin =checkifsingedin;
+    </script>
 </body>
 
 </html>

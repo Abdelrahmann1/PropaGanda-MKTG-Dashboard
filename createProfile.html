@@ -53,14 +53,14 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle profile-pic" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Admin</span>
+                        <h6 class="mb-0 userEmail">Abdelrhman</h6>
+                        <span>Content Creator</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -68,7 +68,7 @@
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
 
                     <a href="createProfile.html" class="nav-item nav-link active"><i class="fa fa-user-plus me-2"></i>Create
-                        Profile</a>
+                        Profile <i class="fa-solid fa-hourglass-end hourglass"></i></a>
                     <a href="identity_verification.html" class="nav-item nav-link"><i
                             class="fa fa-id-card me-2"></i>Verify Account</a>
 
@@ -107,9 +107,9 @@
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
+                            <img class="profile-pic rounded-circle me-lg-2" src="img/user.jpg" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <span class="d-none userEmail d-lg-inline-flex">John Doe</span>
                         </a>
 
                     </div>
@@ -121,14 +121,33 @@
             <!-- Form Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
+                    <div class="progressupperdiv">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">Basic Form INFO</h6>
                             <form>
-                                <div class="text-center mb-4">
+                                <!-- <div class="text-center mb-4">
                                     <img src="https://via.placeholder.com/150" alt="Profile Picture"
                                         class="profile-pic">
+
+                                </div> -->
+                                <div id="upload-container"style="margin: 20px 0;">
+                                    <!-- Container to show before uploading -->
+                                    <div id="before-upload">
+                                        <p>Click to upload an image</p>
+                                        <input type="file" id="image-upload" accept="image/*" style="display:none;">
+                                    </div>
+                                
+                                    <!-- Container to display the uploaded image -->
+                                    <div id="after-upload" style="display:none;">
+                                        <img id="uploaded-image" src="" alt="Uploaded Image" style="width:100%">
+                                    </div>
                                 </div>
+                                
                                 <!-- Full Name -->
                                 <div class="mb-3" style="margin-bottom: 1rem;">
                                     <label for="fullName" class="form-label"
@@ -475,10 +494,10 @@
                         </div>
                     </div>
                     <!-- Form End -->
-                    <div class="container mt-5">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <h4 class="mb-4"><i class="fa fa-video"></i> Upload Your Reels (15 seconds each)</h4>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="card shadow-sm">
                                     <div class="card-body">
                                         <h5 class="card-title">Upload Reel 1</h5>
@@ -509,24 +528,26 @@
                     </div>
 
                     <!-- Optional: Add Bootstrap CSS for styling -->
-                    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css"
-                        rel="stylesheet">
-
-
-
-                    <!-- Footer Start -->
-                    <div class="container-fluid pt-4 px-4">
-                        <div class="bg-light rounded-top p-4">
-                            <div class="row">
-                                <div class="col-12 col-sm-6 text-center text-sm-start">
-                                    &copy; <a href="#">SlilconSloultions</a>, All Right Reserved.
-                                </div>
-                                <div class="col-12 col-sm-6 text-center text-sm-end">
-                                    Designed By <a href="https://SlilconSloultions.com">SlilconSloultions</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                     <div class="row">
+                         <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css"
+                             rel="stylesheet">
+     
+     
+     
+                         <!-- Footer Start -->
+                         <div class="container-fluid pt-4 px-4">
+                             <div class="bg-light rounded-top p-4">
+                                 <div class="row">
+                                     <div class="col-12 col-sm-6 text-center text-sm-start">
+                                         &copy; <a href="#">SlilconSloultions</a>, All Right Reserved.
+                                     </div>
+                                     <div class="col-12 col-sm-6 text-center text-sm-end">
+                                         Designed By <a href="https://SlilconSloultions.com">SlilconSloultions</a>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
                     <!-- Footer End -->
                 </div>
                 <!-- Content End -->
@@ -546,7 +567,10 @@
             <script src="lib/tempusdominus/js/moment.min.js"></script>
             <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
             <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
+            <script type="module">
+                import {  checkifsingedin} from "./js/firebase.js";
+                window.checkifsingedin =checkifsingedin;
+            </script>
             <!-- Template Javascript -->
             <script src="js/main.js"></script>
 </body>

@@ -4,6 +4,52 @@
     --light: #F3F6F9;
     --dark: #191C24;
 }
+#upload-container {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+.hourglass{
+    background-color: transparent !important;
+    width: 20px !important;
+}
+#before-upload {
+    font-size: 18px;
+    color: #666;
+}
+.form-check{
+    position: relative;
+    padding-left: 0;
+}
+.faas{
+    font-size: 40px;
+}
+.radiooo{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    z-index: 999;
+    margin-left: 0 !important;
+}
+.radilabel{
+    padding: 3rem;
+    border-radius: 15px;
+    border: 1px #a29494 solid;
+    font-size: 17px;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.choosingid{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+#after-upload img {
+    max-width: 100%;
+    height: auto;
+}
 
 .back-to-top {
     position: fixed;
@@ -13,7 +59,21 @@
     z-index: 99;
 }
 
-
+.btn-signingogle{
+    background-color: white;
+    color: black !important;
+    border: none;
+}
+.btn-signingogle:hover{
+    background-color: white;
+    color: black !important;
+    border: none;
+}
+#errorMessage1,#errorMessage2,#errorMessage3{
+    font-size: 15px;
+    padding: 0;
+    margin: 0;
+  }
 /*** Spinner ***/
 #spinner {
     opacity: 0;
@@ -123,7 +183,7 @@
 
 /*** Navbar ***/
 .sidebar .navbar .navbar-nav .nav-link {
-    padding: 7px 20px;
+    padding: 7px 13px;
     color: var(--dark);
     font-weight: 500;
     border-left: 3px solid var(--light);
@@ -274,4 +334,226 @@
 .testimonial-carousel .owl-dot.active {
     background: var(--dark);
     border-color: var(--primary);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.plans {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-evenly;
+  width: 100%;
+    /* max-width: 970px; */
+    /* padding: 85px 50px; */
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 20px;
+    /* -webkit-box-shadow: 0px 8px 10px 0px #d8dfeb; */
+    /* box-shadow: 0px 8px 10px 0px #d8dfeb; */
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+  .plan-details{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .plans .plan input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+  }
+  
+  .plans .plan {
+    cursor: pointer;
+    width: 28%;
+  }
+  
+  .plans .plan .plan-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 30px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 2px solid #e1e2e7;
+    border-radius: 10px;
+    -webkit-transition: -webkit-box-shadow 0.4s;
+    transition: -webkit-box-shadow 0.4s;
+    -o-transition: box-shadow 0.4s;
+    transition: box-shadow 0.4s;
+    transition: box-shadow 0.4s, -webkit-box-shadow 0.4s;
+    position: relative;
+  }
+  .progressupperdiv{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+  .progress{
+    width: 100%;
+    padding-left: 0;
+  }
+  
+  .plans .plan .plan-details span {
+    display: block;
+    font-size: 20px;
+    line-height: 24px;
+    color: #252f42;
+  }
+  
+  .container .title {
+    font-size: 20px;
+    font-weight: 500;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+    color: #252f42;
+    margin-bottom: 20px;
+  }
+  
+  .plans .plan .plan-details p {
+    color: #646a79;
+    font-size: 14px;
+    line-height: 18px;
+  }
+  
+  .plans .plan .plan-content:hover {
+    -webkit-box-shadow: 0px 3px 5px 0px #e8e8e8;
+    box-shadow: 0px 3px 5px 0px #e8e8e8;
+  }
+  
+  .plans .plan input[type="radio"]:checked + .plan-content:after {
+    content: "";
+    position: absolute;
+    height: 8px;
+    width: 8px;
+    background: #216fe0;
+    right: 20px;
+    top: 20px;
+    border-radius: 100%;
+    border: 3px solid #fff;
+    -webkit-box-shadow: 0px 0px 0px 2px #0066ff;
+    box-shadow: 0px 0px 0px 2px #0066ff;
+  }
+  
+  .plans .plan input[type="radio"]:checked + .plan-content {
+    border: 2px solid #216ee0;
+    background: #eaf1fe;
+    -webkit-transition: ease-in 0.3s;
+    -o-transition: ease-in 0.3s;
+    transition: ease-in 0.3s;
+  }
+  
+  @media screen and (max-width: 991px) {
+    .plans {
+      margin: 0 20px;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-align: start;
+      -ms-flex-align: start;
+      align-items: flex-start;
+      padding: 40px;
+    }
+  
+    .plans .plan {
+      width: 100%;
+    }
+  
+    .plan.complete-plan {
+      margin-top: 20px;
+    }
+  
+    .plans .plan .plan-content .plan-details {
+      width: 70%;
+      display: inline-block;
+    }
+  
+    .plans .plan input[type="radio"]:checked + .plan-content:after {
+      top: 45%;
+      -webkit-transform: translate(-50%);
+      -ms-transform: translate(-50%);
+      transform: translate(-50%);
+    }
+  }
+  
+  @media screen and (max-width: 767px) {
+    .plans .plan .plan-content .plan-details {
+      width: 60%;
+      display: inline-block;
+    }
+  }
+  
+  @media screen and (max-width: 540px) {
+    .plans .plan .plan-content img {
+      margin-bottom: 20px;
+      height: 56px;
+      -webkit-transition: height 0.4s;
+      -o-transition: height 0.4s;
+      transition: height 0.4s;
+    }
+  
+    .plans .plan input[type="radio"]:checked + .plan-content:after {
+      top: 20px;
+      right: 10px;
+    }
+  
+    .plans .plan .plan-content .plan-details {
+      width: 100%;
+    }
+  
+    .plans .plan .plan-content {
+      padding: 20px;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+      align-items: baseline;
+    }
+  }
+  
+  /* inspiration */
+  .inspiration {
+    font-size: 12px;
+    margin-top: 50px;
+    position: absolute;
+    bottom: 10px;
+    font-weight: 300;
+  }
+  
+  .inspiration a {
+    color: #666;
+  }
+  @media  (max-width: 767px) {
+    /* inspiration */
+    .inspiration {
+      display: none;
+    }
 }

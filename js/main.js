@@ -63,3 +63,23 @@
     
 })(jQuery);
 
+
+document.getElementById('upload-container').addEventListener('click', function() {
+    document.getElementById('image-upload').click(); // Trigger the file input click
+});
+
+document.getElementById('image-upload').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('uploaded-image').src = e.target.result;
+            
+            // Hide the before-upload container and show the after-upload container
+            document.getElementById('before-upload').style.display = 'none';
+            document.getElementById('after-upload').style.display = 'block';
+        };
+        reader.readAsDataURL(file); // Read the file as a data URL
+    }
+});
