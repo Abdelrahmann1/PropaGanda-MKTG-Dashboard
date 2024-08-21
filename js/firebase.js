@@ -1,5 +1,6 @@
   // Import the functions you need from the SDKs
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+  import {getStorage, ref, uploadBytes, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js";
   import { getFirestore, collection, query, where, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
   import { getAuth,GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
 
@@ -19,10 +20,65 @@
   const db = getFirestore(app);
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
+  const storage = firebase.storage();
+
 
   function containsProsCom(email) {
     const regex = /@pros\.com$/;
     return regex.test(email);
+}
+async function addDataToFirestore2(data, tabelname) {
+  try {
+      const docRef = await addDoc(collection(db, tabelname), data);
+      console.log("Document successfully written!", docRef.id);
+  } catch (error) {
+      console.error("Error adding document:", error);
+  }
+}
+export async function sendreels() {
+  
+                   
+  try {
+    const reel = []; // Initialize the reel array
+    const filesToUpload = [];
+
+    document.querySelectorAll('.upload-container').forEach(container => {
+        const fileInput = container.querySelector('.media-upload');
+        if (fileInput && fileInput.files.length > 0) {
+            filesToUpload.push(fileInput.files[0]);
+        }
+    });
+
+    // Check if no files are uploaded
+    if (filesToUpload.length === 0) {
+        throw new Error('Please upload all required videos.');
+    }
+
+    const uploadPromises = filesToUpload.map(async (file, index) => {
+        const storage = getStorage();
+        const storageRef = ref(storage, `videos/video${index + 1}-${file.name}`);
+        const snapshot = await uploadBytes(storageRef, file);
+        const downloadURL = await getDownloadURL(snapshot.ref);
+
+        // Push video metadata to the reel array
+        reel.push({ url: downloadURL, name: file.name });
+
+        return { url: downloadURL, name: file.name };
+    });
+
+    await Promise.all(uploadPromises); // Wait for all uploads to complete
+
+    const data = {
+        reel, // Add the reel array to the data
+        // Include any other form data you want to save to Firestore
+    };
+
+    await addDataToFirestore2(data, 'vendor');
+    console.log('Form successfully submitted!');
+} catch (error) {
+    console.error('Error submitting form:', error);
+    alert('Error submitting form: ' + error.message);
+}
 }
   export async function signInWithGoogle() {
   
@@ -201,3 +257,9 @@ window.onload = function() {
   // Get references to the elements
     checkifsingedin();
 };
+const form = document.getElementById('videoUploadForm');
+form.addEventListener('submit', function (event) {
+  alert()
+    event.preventDefault(); // Prevent default form submission
+    sendreels();
+});

@@ -53,13 +53,14 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle profile-pic" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle profile-pic" src="img/user.jpg" alt=""
+                            style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0 userEmail">Abdelrhman</h6>
+                        <h6 class="mb-0 userEmail"></h6>
                         <span>Content Creator</span>
                     </div>
                 </div>
@@ -67,11 +68,15 @@
                     <a href="index.html" class="nav-item nav-link "><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
 
-                    <a href="createProfile.html" class="nav-item nav-link active"><i class="fa fa-user-plus me-2"></i>Create
-                        Profile <i class="fa-solid fa-hourglass-end hourglass"></i><i class="fa-solid fa-square-check squarechecks d-none"></i></a>
-                        
+                    <a href="createProfile.html" class="nav-item nav-link active"><i
+                            class="fa fa-user-plus me-2"></i>Create
+                        Profile <i class="fa-solid fa-hourglass-end hourglass"></i><i
+                            class="fa-solid fa-square-check squarechecks d-none"></i></a>
+
                     <a href="identity_verification.html" class="nav-item nav-link"><i
-                            class="fa fa-id-card me-2"></i>Verify Account</a>
+                            class="fa fa-id-card me-2"></i>Verify Account <i
+                            class="fa-solid fa-hourglass-end hourglass"></i><i
+                            class="fa-solid fa-square-check squarechecks d-none"></i></a>
 
 
                     <a href="create_packages.html" class="nav-item nav-link"><i class="fa fa-box me-2"></i>Create
@@ -123,9 +128,11 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="progressupperdiv">
-                        <div class="progress" role="progressbar" aria-label="Success striped example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar progress-bar-striped bg-success"id="pregresssbar" style="width: 50%">%0</div>
-                          </div>
+                        <div class="progress" role="progressbar" aria-label="Success striped example" aria-valuenow="50"
+                            aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar progress-bar-striped bg-success" id="pregresssbarcreate"
+                                style="width: 50%">%0</div>
+                        </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="bg-light rounded h-100 p-4">
@@ -136,20 +143,20 @@
                                         class="profile-pic">
 
                                 </div> -->
-                                <div id="upload-container"style="margin: 20px 0;">
-                                    <!-- Container to show before uploading -->
-                                    <div id="before-upload">
+                                <div class="upload-container" style="margin: 20px 0;">
+                                    <div class="before-upload" id="before-upload">
                                         <i class="fa-solid fa-upload uploadicon"></i>
                                         <p>Click to upload an image</p>
-                                        <input type="file" id="image-upload" accept="image/*" style="display:none;">
+                                        <input type="file" class="media-upload" accept="image/*" id="image-upload"
+                                            style="display:none;">
                                     </div>
-                                
-                                    <!-- Container to display the uploaded image -->
-                                    <div id="after-upload" style="display:none;">
-                                        <img id="uploaded-image" src="" alt="Uploaded Image" style="width:100%">
+                                    <div class="after-upload" id="after-upload" style="display:none;">
+                                        <img class="uploaded-media" id="uploaded-image" src="" alt="Uploaded Image"
+                                            style="width:100%; display:none;">
                                     </div>
                                 </div>
-                                
+
+
                                 <!-- Full Name -->
                                 <div class="mb-3" style="margin-bottom: 1rem;">
                                     <label for="fullName" class="form-label"
@@ -271,162 +278,162 @@
                                 <div class="container mt-4">
                                     <div class="mb-3" style="margin-bottom: 1rem;">
                                         <div class="manychoises">
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="beauty"
-                                                        name="contentCategories" value="beauty">
-                                                    <label class="form-check-label" for="beauty">
-                                                        <i class="fa fa-magic" style="margin-right: 0.5rem;"></i> Beauty
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="fashion"
-                                                        name="contentCategories" value="fashion">
-                                                    <label class="form-check-label" for="fashion">
-                                                        <i class="fa fa-tshirt" style="margin-right: 0.5rem;"></i>
-                                                        Fashion
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="tech"
-                                                        name="contentCategories" value="tech">
-                                                    <label class="form-check-label" for="tech">
-                                                        <i class="fa fa-laptop" style="margin-right: 0.5rem;"></i>
-                                                        Technology
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="lifestyle"
-                                                        name="contentCategories" value="lifestyle">
-                                                    <label class="form-check-label" for="lifestyle">
-                                                        <i class="fa fa-sun" style="margin-right: 0.5rem;"></i>
-                                                        Lifestyle
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="travel"
-                                                        name="contentCategories" value="travel">
-                                                    <label class="form-check-label" for="travel">
-                                                        <i class="fa fa-plane" style="margin-right: 0.5rem;"></i> Travel
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="food"
-                                                        name="contentCategories" value="food">
-                                                    <label class="form-check-label" for="food">
-                                                        <i class="fa fa-utensils" style="margin-right: 0.5rem;"></i>
-                                                        Food
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="fitness"
-                                                        name="contentCategories" value="fitness">
-                                                    <label class="form-check-label" for="fitness">
-                                                        <i class="fa fa-dumbbell" style="margin-right: 0.5rem;"></i>
-                                                        Fitness
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="gaming"
-                                                        name="contentCategories" value="gaming">
-                                                    <label class="form-check-label" for="gaming">
-                                                        <i class="fa fa-gamepad" style="margin-right: 0.5rem;"></i>
-                                                        Gaming
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="education"
-                                                        name="contentCategories" value="education">
-                                                    <label class="form-check-label" for="education">
-                                                        <i class="fa fa-book" style="margin-right: 0.5rem;"></i>
-                                                        Education
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="finance"
-                                                        name="contentCategories" value="finance">
-                                                    <label class="form-check-label" for="finance">
-                                                        <i class="fa fa-dollar-sign" style="margin-right: 0.5rem;"></i>
-                                                        Finance
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="music"
-                                                        name="contentCategories" value="music">
-                                                    <label class="form-check-label" for="music">
-                                                        <i class="fa fa-music" style="margin-right: 0.5rem;"></i> Music
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="health"
-                                                        name="contentCategories" value="health">
-                                                    <label class="form-check-label" for="health">
-                                                        <i class="fa fa-heartbeat" style="margin-right: 0.5rem;"></i>
-                                                        Health & Wellness
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="art"
-                                                        name="contentCategories" value="art">
-                                                    <label class="form-check-label" for="art">
-                                                        <i class="fa fa-paint-brush" style="margin-right: 0.5rem;"></i>
-                                                        Art & Design
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="automotive"
-                                                        name="contentCategories" value="automotive">
-                                                    <label class="form-check-label" for="automotive">
-                                                        <i class="fa fa-car" style="margin-right: 0.5rem;"></i>
-                                                        Automotive
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="home"
-                                                        name="contentCategories" value="home">
-                                                    <label class="form-check-label" for="home">
-                                                        <i class="fa fa-home" style="margin-right: 0.5rem;"></i> Home &
-                                                        Decor
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="photography"
-                                                        name="contentCategories" value="photography">
-                                                    <label class="form-check-label" for="photography">
-                                                        <i class="fa fa-camera" style="margin-right: 0.5rem;"></i>
-                                                        Photography
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="pets"
-                                                        name="contentCategories" value="pets">
-                                                    <label class="form-check-label" for="pets">
-                                                        <i class="fa fa-paw" style="margin-right: 0.5rem;"></i> Pets
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="entertainment"
-                                                        name="contentCategories" value="entertainment">
-                                                    <label class="form-check-label" for="entertainment">
-                                                        <i class="fa fa-film" style="margin-right: 0.5rem;"></i>
-                                                        Entertainment
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="sports"
-                                                        name="contentCategories" value="sports">
-                                                    <label class="form-check-label" for="sports">
-                                                        <i class="fa fa-futbol" style="margin-right: 0.5rem;"></i>
-                                                        Sports
-                                                    </label>
-                                                </div>
-                                                <div class="form-check" style="margin-bottom: 0.5rem;">
-                                                    <input class="form-check-input" type="checkbox" id="parenting"
-                                                        name="contentCategories" value="parenting">
-                                                    <label class="form-check-label" for="parenting">
-                                                        <i class="fa fa-child" style="margin-right: 0.5rem;"></i>
-                                                        Parenting
-                                                    </label>
-                                                </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="beauty"
+                                                    name="contentCategories" value="beauty">
+                                                <label class="form-check-label" for="beauty">
+                                                    <i class="fa fa-magic" style="margin-right: 0.5rem;"></i> Beauty
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="fashion"
+                                                    name="contentCategories" value="fashion">
+                                                <label class="form-check-label" for="fashion">
+                                                    <i class="fa fa-tshirt" style="margin-right: 0.5rem;"></i>
+                                                    Fashion
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="tech"
+                                                    name="contentCategories" value="tech">
+                                                <label class="form-check-label" for="tech">
+                                                    <i class="fa fa-laptop" style="margin-right: 0.5rem;"></i>
+                                                    Technology
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="lifestyle"
+                                                    name="contentCategories" value="lifestyle">
+                                                <label class="form-check-label" for="lifestyle">
+                                                    <i class="fa fa-sun" style="margin-right: 0.5rem;"></i>
+                                                    Lifestyle
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="travel"
+                                                    name="contentCategories" value="travel">
+                                                <label class="form-check-label" for="travel">
+                                                    <i class="fa fa-plane" style="margin-right: 0.5rem;"></i> Travel
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="food"
+                                                    name="contentCategories" value="food">
+                                                <label class="form-check-label" for="food">
+                                                    <i class="fa fa-utensils" style="margin-right: 0.5rem;"></i>
+                                                    Food
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="fitness"
+                                                    name="contentCategories" value="fitness">
+                                                <label class="form-check-label" for="fitness">
+                                                    <i class="fa fa-dumbbell" style="margin-right: 0.5rem;"></i>
+                                                    Fitness
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="gaming"
+                                                    name="contentCategories" value="gaming">
+                                                <label class="form-check-label" for="gaming">
+                                                    <i class="fa fa-gamepad" style="margin-right: 0.5rem;"></i>
+                                                    Gaming
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="education"
+                                                    name="contentCategories" value="education">
+                                                <label class="form-check-label" for="education">
+                                                    <i class="fa fa-book" style="margin-right: 0.5rem;"></i>
+                                                    Education
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="finance"
+                                                    name="contentCategories" value="finance">
+                                                <label class="form-check-label" for="finance">
+                                                    <i class="fa fa-dollar-sign" style="margin-right: 0.5rem;"></i>
+                                                    Finance
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="music"
+                                                    name="contentCategories" value="music">
+                                                <label class="form-check-label" for="music">
+                                                    <i class="fa fa-music" style="margin-right: 0.5rem;"></i> Music
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="health"
+                                                    name="contentCategories" value="health">
+                                                <label class="form-check-label" for="health">
+                                                    <i class="fa fa-heartbeat" style="margin-right: 0.5rem;"></i>
+                                                    Health & Wellness
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="art"
+                                                    name="contentCategories" value="art">
+                                                <label class="form-check-label" for="art">
+                                                    <i class="fa fa-paint-brush" style="margin-right: 0.5rem;"></i>
+                                                    Art & Design
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="automotive"
+                                                    name="contentCategories" value="automotive">
+                                                <label class="form-check-label" for="automotive">
+                                                    <i class="fa fa-car" style="margin-right: 0.5rem;"></i>
+                                                    Automotive
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="home"
+                                                    name="contentCategories" value="home">
+                                                <label class="form-check-label" for="home">
+                                                    <i class="fa fa-home" style="margin-right: 0.5rem;"></i> Home &
+                                                    Decor
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="photography"
+                                                    name="contentCategories" value="photography">
+                                                <label class="form-check-label" for="photography">
+                                                    <i class="fa fa-camera" style="margin-right: 0.5rem;"></i>
+                                                    Photography
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="pets"
+                                                    name="contentCategories" value="pets">
+                                                <label class="form-check-label" for="pets">
+                                                    <i class="fa fa-paw" style="margin-right: 0.5rem;"></i> Pets
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="entertainment"
+                                                    name="contentCategories" value="entertainment">
+                                                <label class="form-check-label" for="entertainment">
+                                                    <i class="fa fa-film" style="margin-right: 0.5rem;"></i>
+                                                    Entertainment
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="sports"
+                                                    name="contentCategories" value="sports">
+                                                <label class="form-check-label" for="sports">
+                                                    <i class="fa fa-futbol" style="margin-right: 0.5rem;"></i>
+                                                    Sports
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-bottom: 0.5rem;">
+                                                <input class="form-check-input" type="checkbox" id="parenting"
+                                                    name="contentCategories" value="parenting">
+                                                <label class="form-check-label" for="parenting">
+                                                    <i class="fa fa-child" style="margin-right: 0.5rem;"></i>
+                                                    Parenting
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -465,8 +472,9 @@
                                                 id="platformFacebook">
                                             <label class="form-check-label" for="platformFacebook"
                                                 style="display: flex; align-items: center;">
-                                                
-                                                <i class="fa-brands fa-facebook" style="margin-right: 0.5rem;"></i> Facebook
+
+                                                <i class="fa-brands fa-facebook" style="margin-right: 0.5rem;"></i>
+                                                Facebook
                                             </label>
                                         </div>
                                         <div class="form-check">
@@ -474,7 +482,8 @@
                                                 id="platformInstagram">
                                             <label class="form-check-label" for="platformInstagram"
                                                 style="display: flex; align-items: center;">
-                                                <i class="fa-brands fa-instagram" style="margin-right: 0.5rem;"></i> Instagram
+                                                <i class="fa-brands fa-instagram" style="margin-right: 0.5rem;"></i>
+                                                Instagram
                                             </label>
                                         </div>
                                         <div class="form-check">
@@ -503,21 +512,58 @@
                                         <h5 class="card-title">Upload Reel 1</h5>
                                         <form id="videoUploadForm">
                                             <div class="mb-3">
-                                                <input type="file" class="form-control" id="videoUpload1"
+                                                <!-- Image Upload Container -->
+
+                                                <!-- Video Upload Container -->
+                                                <div class="upload-container" style="margin: 20px 0;">
+                                                    <div class="before-upload" id="before-upload">
+                                                        <i class="fa-solid fa-upload uploadicon"></i>
+                                                        <p>Video must be up to 15 seconds long.</p>
+                                                        <input required type="file" class="media-upload" name="vid1"
+                                                            accept="video/*" id="video-upload" style="display:none;">
+                                                    </div>
+                                                    <div class="after-upload" id="after-upload2" style="display:none;">
+                                                        <video class="uploaded-media" id="uploaded-video" src=""
+                                                            alt="Uploaded Video" style="width:100%;" controls></video>
+                                                    </div>
+                                                </div>
+
+
+                                                <!-- Repeat the above structure for more upload containers -->
+                                                <!--                                                 
+                                                <input required type="file" class="form-control" id="videoUpload1"
                                                     accept="video/*" onchange="validateVideo(this)">
-                                                <div class="form-text mt-2">Video must be up to 15 seconds long.</div>
+                                                <div class="form-text mt-2">Video must be up to 15 seconds long.</div> -->
                                             </div>
                                             <h5 class="card-title">Upload Reel 2</h5>
                                             <div class="mb-3">
-                                                <input type="file" class="form-control" id="videoUpload2"
-                                                    accept="video/*" onchange="validateVideo(this)">
-                                                <div class="form-text mt-2">Video must be up to 15 seconds long.</div>
+                                                <div class="upload-container" style="margin: 20px 0;">
+                                                    <div class="before-upload" id="before-upload3">
+                                                        <i class="fa-solid fa-upload uploadicon"></i>
+                                                        <p>Video must be up to 15 seconds long.</p>
+                                                        <input required type="file" class="media-upload"name="vid2"
+                                                            accept="video/*" id="video-upload2" style="display:none;">
+                                                    </div>
+                                                    <div class="after-upload" id="after-upload2" style="display:none;">
+                                                        <video class="uploaded-media" id="uploaded-video" src=""
+                                                            alt="Uploaded Video" style="width:100%;" controls></video>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <h5 class="card-title">Upload Reel 3</h5>
                                             <div class="mb-3">
-                                                <input type="file" class="form-control" id="videoUpload3"
-                                                    accept="video/*" onchange="validateVideo(this)">
-                                                <div class="form-text mt-2">Video must be up to 15 seconds long.</div>
+                                                <div class="upload-container" style="margin: 20px 0;">
+                                                    <div class="before-upload" id="before-upload2">
+                                                        <i class="fa-solid fa-upload uploadicon"></i>
+                                                        <p>Video must be up to 15 seconds long.</p>
+                                                        <input required type="file" class="media-upload" name="vid3"
+                                                            accept="video/*" id="video-upload3" style="display:none;">
+                                                    </div>
+                                                    <div class="after-upload" id="after-upload2" style="display:none;">
+                                                        <video class="uploaded-media" id="uploaded-video" src=""
+                                                            alt="Uploaded Video" style="width:100%;" controls></video>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Submit Videos</button>
                                         </form>
@@ -528,26 +574,26 @@
                     </div>
 
                     <!-- Optional: Add Bootstrap CSS for styling -->
-                     <div class="row">
-                         <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css"
-                             rel="stylesheet">
-     
-     
-     
-                         <!-- Footer Start -->
-                         <div class="container-fluid pt-4 px-4">
-                             <div class="bg-light rounded-top p-4">
-                                 <div class="row">
-                                     <div class="col-12 col-sm-6 text-center text-sm-start">
-                                         &copy; <a href="#">SlilconSloultions</a>, All Right Reserved.
-                                     </div>
-                                     <div class="col-12 col-sm-6 text-center text-sm-end">
-                                         Designed By <a href="https://SlilconSloultions.com">SlilconSloultions</a>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
+                    <div class="row">
+                        <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css"
+                            rel="stylesheet">
+
+
+
+                        <!-- Footer Start -->
+                        <div class="container-fluid pt-4 px-4">
+                            <div class="bg-light rounded-top p-4">
+                                <div class="row">
+                                    <div class="col-12 col-sm-6 text-center text-sm-start">
+                                        &copy; <a href="#">SlilconSloultions</a>, All Right Reserved.
+                                    </div>
+                                    <div class="col-12 col-sm-6 text-center text-sm-end">
+                                        Designed By <a href="https://SlilconSloultions.com">SlilconSloultions</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Footer End -->
                 </div>
                 <!-- Content End -->
@@ -568,11 +614,17 @@
             <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
             <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
             <script type="module">
-                import {  checkifsingedin} from "./js/firebase.js";
-                window.checkifsingedin =checkifsingedin;
+                import { checkifsingedin,sendreels } from "./js/firebase.js";
+                window.checkifsingedin = checkifsingedin;
+                window.sendreels= sendreels;
+            </script>
+            <script src="js/main.js"></script>
+
+            <script>
+        
+
             </script>
             <!-- Template Javascript -->
-            <script src="js/main.js"></script>
 </body>
 
 </html>

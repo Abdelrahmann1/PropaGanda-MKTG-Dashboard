@@ -4,7 +4,7 @@
     --light: #F3F6F9;
     --dark: #191C24;
 }
-#upload-container {
+.upload-container {
     border: 2px dashed #ccc;
     padding: 20px;
     text-align: center;
@@ -19,9 +19,12 @@
   background-color: transparent !important;
   width: 20px !important;
 }
-#before-upload {
+.before-upload {
     font-size: 18px;
     color: #666;
+}
+.uploaded-media{
+  max-height: 20rem;
 }
 .form-check{
     position: relative;
@@ -55,7 +58,10 @@
     max-width: 100%;
     height: auto;
 }
-
+.after-upload img {
+  max-width: 100%;
+  height: auto;
+}
 .back-to-top {
     position: fixed;
     display: none;

@@ -63,25 +63,64 @@
     
 })(jQuery);
 
+document.addEventListener('DOMContentLoaded', function() {
 
-document.getElementById('upload-container').addEventListener('click', function() {
-    document.getElementById('image-upload').click(); // Trigger the file input click
-});
+    document.querySelectorAll('.upload-container').forEach(function(container) {
+        const beforeUpload = container.querySelector('.before-upload');
+        const afterUpload = container.querySelector('.after-upload');
+        const fileInput = container.querySelector('.media-upload');
+        const uploadedMedia = container.querySelector('.uploaded-media');
 
-document.getElementById('image-upload').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('uploaded-image').src = e.target.result;
-            
-            // Hide the before-upload container and show the after-upload container
-            document.getElementById('before-upload').style.display = 'none';
-            document.getElementById('after-upload').style.display = 'block';
-        };
-        reader.readAsDataURL(file); // Read the file as a data URL
-    }
+        console.log('Setting up container:', container); // Debug container setup
+
+        if (beforeUpload) {
+            beforeUpload.addEventListener('click', function() {
+                if (fileInput) {
+                    fileInput.click(); // Trigger the file input click
+                }
+            });
+        }
+
+        if (fileInput) {
+            fileInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        console.log('File loaded'); // Debug file loaded
+
+                        if (file.type.startsWith('video/')) {
+                            const tempVideo = document.createElement('video');
+                            tempVideo.src = e.target.result;
+
+                            // Check video duration after it's loaded
+                            tempVideo.onloadedmetadata = function() {
+                                if (tempVideo.duration <= 15) {
+                                    alert('The video must be longer than 15 seconds.');
+                                    fileInput.value = ''; // Clear the input
+                                    return;
+                                } else {
+                                    // Display the video if duration is valid
+                                    if (uploadedMedia && uploadedMedia.tagName === 'VIDEO') {
+                                        uploadedMedia.src = e.target.result;
+                                        uploadedMedia.style.display = 'block';
+                                    }
+
+                                    // Hide the before-upload container and show the after-upload container
+                                    if (beforeUpload && afterUpload) {
+                                        beforeUpload.style.display = 'none';
+                                        afterUpload.style.display = 'block';
+                                    }
+                                }
+                            };
+                        }
+                    };
+                    reader.readAsDataURL(file); // Read the file as a data URL
+                }
+            });
+        }
+    });
 });
 
 
@@ -95,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const progressValue = parseInt(progress, 10);
 
     // Get the progress bar element
-    const progressBar = document.getElementById('pregresssbar');
+    const progressBar = document.getElementById('pregresssbarcreate');
 
     // Set the width of the progress bar and the displayed percentage
     progressBar.style.width = progressValue + '%';
