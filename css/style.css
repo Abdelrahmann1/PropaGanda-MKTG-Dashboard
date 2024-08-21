@@ -13,6 +13,11 @@
 .hourglass{
     background-color: transparent !important;
     width: 20px !important;
+    color: red;
+}
+.squarechecks{
+  background-color: transparent !important;
+  width: 20px !important;
 }
 #before-upload {
     font-size: 18px;
@@ -440,20 +445,60 @@
     font-size: 14px;
     line-height: 18px;
   }
-  
+  .preffers{
+    display: flex;
+    gap: 2rem;
+    justify-content: space-evenly;
+  }
   .plans .plan .plan-content:hover {
     -webkit-box-shadow: 0px 3px 5px 0px #e8e8e8;
     box-shadow: 0px 3px 5px 0px #e8e8e8;
+  }
+  .manychoises {
+    display: flex;
+    flex-direction: column; /* Arrange the checkboxes vertically */
+    gap: 1rem; /* Add space between each checkbox */
+    width: 100%;
+}
+
+.uploadicon{
+  font-size: 30px;
+}
+@media (min-width: 768px) {
+    .manychoises {
+        flex-direction: row; /* Switch to horizontal layout on larger screens */
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .manychoises .form-check {
+        flex-basis: calc(33.333% - 2rem); /* Each checkbox takes up one-third of the row, minus the gap */
+        margin-bottom: 0;
+    }
+}
+
+  .plans .plan input[type="radio"] + .plan-content:after {
+    content: "";
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    background: #ffffff;
+    right: 8%;
+    top: 42%;
+    border-radius: 100%;
+    border: 3px solid #fff;
+    -webkit-box-shadow: 0px 0px 0px 2px #a1a1a1;
+    box-shadow: 0px 0px 0px 2px #a1a1a1;
   }
   
   .plans .plan input[type="radio"]:checked + .plan-content:after {
     content: "";
     position: absolute;
-    height: 8px;
-    width: 8px;
+    height: 16px;
+    width: 16px;
     background: #216fe0;
-    right: 20px;
-    top: 20px;
+    right: 8%;
+    top: 42%;
     border-radius: 100%;
     border: 3px solid #fff;
     -webkit-box-shadow: 0px 0px 0px 2px #0066ff;

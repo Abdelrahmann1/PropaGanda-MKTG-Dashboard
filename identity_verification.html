@@ -189,9 +189,11 @@
              
             <div class="container mt-5">
                 <div class="progressupperdiv mb-5">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
+                    <div class="progressupperdiv">
+                        <div class="progress" role="progressbar" aria-label="Success striped example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar progress-bar-striped bg-success" style="width: 50%">%50</div>
+                          </div>
+                    </div>
                 </div>
                 <h2>Identity Verification</h2>
                 <p>You can submit a request to verify your account using one of the following methods:</p>
@@ -221,11 +223,11 @@
                         </label>
                     
                         <label class="plan plan-id-card" for="planIdCard">
-                            <input type="radio" id="planIdCard" name="identificationPlan" value="id_card" />
+                            <input type="radio" id="planIdCard" name="identificationPlan"checked  value="id_card" />
                             <div class="plan-content">
                                 <div class="plan-details">
                                     <i class="fa fa-id-card faas"></i>
-                                    <span>ID Card/Residence Permit</span>
+                                    <span>ID Card Permit</span>
                                 </div>
                             </div>
                         </label>

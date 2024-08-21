@@ -161,7 +161,7 @@
           // UIDs match, hide the "Sign Up" link and display the email
           // userEmailDiv.style.display = 'block';
           if (window.location.href.includes("signin.html") || window.location.href.includes("signup.html")) {
-            window.location.href="/index.html";
+            window.location.href="./index.html";
         }
           userEmailDiv.textContent = `${storedusername}`;
           userEmailDiv2.textContent = `${storedusername}`;
@@ -176,14 +176,14 @@
           console.error('UID mismatch: Stored UID does not match current user.');
           // Optionally, you could sign the user out:
           if (!window.location.href=="/signin.html" || !window.location.href=="/signup.html") {
-            window.location.href="/signup.html";
+            window.location.href="./signup.html";
         }
           auth.signOut();
           localStorage.clear();
         }
       } else {
         if (!window.location.href=="/signin.html" || !window.location.href=="/signup.html") {
-            window.location.href="/signup.html";
+            window.location.href="./signup.html";
         }
         // No user is signed in, ensure the "Sign Up" link is visible
 
@@ -192,7 +192,7 @@
 } else {
   if (window.location.href.includes("signin.html") || window.location.href.includes("signup.html")) {
   } else {
-    window.location.href = "/signin.html"; // Redirect to signin.html if the page is neither
+    window.location.href = "./signin.html"; // Redirect to signin.html if the page is neither
   }
 }
 }

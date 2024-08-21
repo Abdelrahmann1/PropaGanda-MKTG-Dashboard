@@ -68,7 +68,8 @@
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
 
                     <a href="createProfile.html" class="nav-item nav-link active"><i class="fa fa-user-plus me-2"></i>Create
-                        Profile <i class="fa-solid fa-hourglass-end hourglass"></i></a>
+                        Profile <i class="fa-solid fa-hourglass-end hourglass"></i><i class="fa-solid fa-square-check squarechecks d-none"></i></a>
+                        
                     <a href="identity_verification.html" class="nav-item nav-link"><i
                             class="fa fa-id-card me-2"></i>Verify Account</a>
 
@@ -109,7 +110,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="profile-pic rounded-circle me-lg-2" src="img/user.jpg" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none userEmail d-lg-inline-flex">John Doe</span>
+                            <span class="d-none userEmail d-lg-inline-flex"></span>
                         </a>
 
                     </div>
@@ -122,8 +123,8 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="progressupperdiv">
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress" role="progressbar" aria-label="Success striped example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar progress-bar-striped bg-success"id="pregresssbar" style="width: 50%">%0</div>
                           </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
@@ -138,6 +139,7 @@
                                 <div id="upload-container"style="margin: 20px 0;">
                                     <!-- Container to show before uploading -->
                                     <div id="before-upload">
+                                        <i class="fa-solid fa-upload uploadicon"></i>
                                         <p>Click to upload an image</p>
                                         <input type="file" id="image-upload" accept="image/*" style="display:none;">
                                     </div>
@@ -220,7 +222,7 @@
                                     <div class="input-group mb-2" style="display: flex; align-items: center;">
                                         <span class="input-group-text"
                                             style="background-color: #f1f1f1; border: 1px solid #ced4da; border-radius: .375rem; color: #6c757d; display: flex; align-items: center; padding: 0.5rem;">
-                                            <i class="fab fa-facebook-f" style="font-size: 1.2rem;"></i>
+                                            <i class="fa-brands fa-facebook" style="font-size: 1.2rem;"></i>
                                         </span>
                                         <input type="text" class="form-control" id="facebook"
                                             placeholder="Facebook (e.g., facebook.com/yourpage)"
@@ -262,14 +264,13 @@
 
 
                                 <!-- Content Categories -->
+                                <label class="form-label"
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: bold;">
+                                    <i class="fa fa-tags" style="margin-right: 0.5rem;"></i> Content Categories
+                                </label>
                                 <div class="container mt-4">
                                     <div class="mb-3" style="margin-bottom: 1rem;">
-                                        <label class="form-label"
-                                            style="display: block; margin-bottom: 0.5rem; font-weight: bold;">
-                                            <i class="fa fa-tags" style="margin-right: 0.5rem;"></i> Content Categories
-                                        </label>
-                                        <div class="row">
-                                            <div class="col-md-4">
+                                        <div class="manychoises">
                                                 <div class="form-check" style="margin-bottom: 0.5rem;">
                                                     <input class="form-check-input" type="checkbox" id="beauty"
                                                         name="contentCategories" value="beauty">
@@ -308,8 +309,6 @@
                                                         <i class="fa fa-plane" style="margin-right: 0.5rem;"></i> Travel
                                                     </label>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-4">
                                                 <div class="form-check" style="margin-bottom: 0.5rem;">
                                                     <input class="form-check-input" type="checkbox" id="food"
                                                         name="contentCategories" value="food">
@@ -350,8 +349,6 @@
                                                         Finance
                                                     </label>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-4">
                                                 <div class="form-check" style="margin-bottom: 0.5rem;">
                                                     <input class="form-check-input" type="checkbox" id="music"
                                                         name="contentCategories" value="music">
@@ -430,7 +427,6 @@
                                                         Parenting
                                                     </label>
                                                 </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -462,29 +458,33 @@
                                         <i class="fa fa-thumbs-up" style="margin-right: 0.5rem;"></i> Preferred
                                         Platforms
                                     </label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="Facebook"
-                                            id="platformFacebook">
-                                        <label class="form-check-label" for="platformFacebook"
-                                            style="display: flex; align-items: center;">
-                                            <i class="fa fa-facebook" style="margin-right: 0.5rem;"></i> Facebook
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="Instagram"
-                                            id="platformInstagram">
-                                        <label class="form-check-label" for="platformInstagram"
-                                            style="display: flex; align-items: center;">
-                                            <i class="fa fa-instagram" style="margin-right: 0.5rem;"></i> Instagram
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="TikTok"
-                                            id="platformTikTok">
-                                        <label class="form-check-label" for="platformTikTok"
-                                            style="display: flex; align-items: center;">
-                                            <i class="fa fa-tiktok" style="margin-right: 0.5rem;"></i> TikTok
-                                        </label>
+                                    <div class="preffers">
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Facebook"
+                                                id="platformFacebook">
+                                            <label class="form-check-label" for="platformFacebook"
+                                                style="display: flex; align-items: center;">
+                                                
+                                                <i class="fa-brands fa-facebook" style="margin-right: 0.5rem;"></i> Facebook
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Instagram"
+                                                id="platformInstagram">
+                                            <label class="form-check-label" for="platformInstagram"
+                                                style="display: flex; align-items: center;">
+                                                <i class="fa-brands fa-instagram" style="margin-right: 0.5rem;"></i> Instagram
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="TikTok"
+                                                id="platformTikTok">
+                                            <label class="form-check-label" for="platformTikTok"
+                                                style="display: flex; align-items: center;">
+                                                <i class="fa-brands fa-tiktok" style="margin-right: 0.5rem;"></i> TikTok
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
 

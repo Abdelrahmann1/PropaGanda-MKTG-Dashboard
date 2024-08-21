@@ -83,3 +83,36 @@ document.getElementById('image-upload').addEventListener('change', function(even
         reader.readAsDataURL(file); // Read the file as a data URL
     }
 });
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the 'createaccprog' value from localStorage
+    // const progress = localStorage.getItem('createaccprog');
+    const progress = 99;
+    // alert(0);
+    // Parse it as an integer (assuming it's stored as a string)
+    const progressValue = parseInt(progress, 10);
+
+    // Get the progress bar element
+    const progressBar = document.getElementById('pregresssbar');
+
+    // Set the width of the progress bar and the displayed percentage
+    progressBar.style.width = progressValue + '%';
+    progressBar.textContent = progressValue + '%';
+
+    // Update the aria-valuenow attribute for accessibility
+    progressBar.setAttribute('aria-valuenow', progressValue);
+    // Get references to the icons
+    const hourglassIcon = document.querySelector('.hourglass');
+    const checkIcon = document.querySelector('.squarechecks');
+
+    // Check the progress value
+    if (progressValue >= 100) {
+        hourglassIcon.classList.add('d-none'); // Hide the hourglass icon
+        checkIcon.classList.remove('d-none');  // Show the check icon
+    } else {
+        checkIcon.classList.add('d-none'); // Hide the check icon
+        hourglassIcon.classList.remove('d-none');  // Show the hourglass icon
+    }
+});
