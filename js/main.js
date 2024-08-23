@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const fileInput = container.querySelector('.media-upload');
         const uploadedMedia = container.querySelector('.uploaded-media');
 
-        console.log('Setting up container:', container); // Debug container setup
+        // console.log('Setting up container:', container); // Debug container setup
 
         if (beforeUpload) {
             beforeUpload.addEventListener('click', function() {
@@ -84,11 +84,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (fileInput) {
             fileInput.addEventListener('change', function(event) {
                 const file = event.target.files[0];
-
+                
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = function(e) {
-                        console.log('File loaded'); // Debug file loaded
 
                         if (file.type.startsWith('video/')) {
                             const tempVideo = document.createElement('video');
@@ -114,7 +113,35 @@ document.addEventListener('DOMContentLoaded', function() {
                                     }
                                 }
                             };
+                        }else if (file.type.startsWith('image/')) {
+                            const tempImage = document.createElement('img');
+                            tempImage.src = e.target.result;
+                        
+                            // Check image dimensions after it's loaded
+                            tempImage.onload = function() {
+                                const minWidth = 300;  // Example minimum width
+                                const minHeight = 300; // Example minimum height
+                        
+                                if (tempImage.width < minWidth || tempImage.height < minHeight) {
+                                    alert(`The image must be at least ${minWidth}px by ${minHeight}px.`);
+                                    fileInput.value = ''; // Clear the input
+                                    return;
+                                } else {
+                                    // Display the image if dimensions are valid
+                                    if (uploadedMedia && uploadedMedia.tagName === 'IMG') {
+                                        uploadedMedia.src = e.target.result;
+                                        uploadedMedia.style.display = 'block';
+                                    }
+                        
+                                    // Hide the before-upload container and show the after-upload container
+                                    if (beforeUpload && afterUpload) {
+                                        beforeUpload.style.display = 'none';
+                                        afterUpload.style.display = 'block';
+                                    }
+                                }
+                            };
                         }
+                        
                     };
                     reader.readAsDataURL(file); // Read the file as a data URL
                 }

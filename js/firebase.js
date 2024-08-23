@@ -1,27 +1,31 @@
-  // Import the functions you need from the SDKs
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-  import {getStorage, ref, uploadBytes, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js";
-  import { getFirestore, collection, query, where, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
-  import { getAuth,GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+// Import the functions you need from the SDKs
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js";
+import { getFirestore, collection, query, where, getDocs, addDoc, setDoc, doc } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
 
-  // Your Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyA80DaelCukmOH_ejU1ANPgpsfwsMbs-e0",
-    authDomain: "propaganda-mktg.firebaseapp.com",
-    projectId: "propaganda-mktg",
-    storageBucket: "propaganda-mktg.appspot.com",
-    messagingSenderId: "629342502640",
-    appId: "1:629342502640:web:da2b6c658375c5b0134c35",
-    measurementId: "G-M5E9WG411F"
-  };
+// Your Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyA80DaelCukmOH_ejU1ANPgpsfwsMbs-e0",
+  authDomain: "propaganda-mktg.firebaseapp.com",
+  projectId: "propaganda-mktg",
+  storageBucket: "propaganda-mktg.appspot.com",
+  messagingSenderId: "629342502640",
+  appId: "1:629342502640:web:da2b6c658375c5b0134c35",
+  measurementId: "G-M5E9WG411F"
+};
 
-  // Initialize Firebase and Firestore
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-  const storage = firebase.storage();
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app); // Initialize Firestore
+const auth = getAuth(app); // Initialize Authentication
+const provider = new GoogleAuthProvider(); // Initialize Google Auth Provider
+const storage = getStorage(app); // Initialize Firebase Storage
 
+// Now you can use the `storage`, `db`, and `auth` objects in your code
+
+
+// Initialize Firestore
 
   function containsProsCom(email) {
     const regex = /@pros\.com$/;
@@ -93,11 +97,7 @@ export async function sendreels() {
       const user = result.user;
       var emails= user.email;
       var username= user.displayName;
-      if (containsProsCom(user.email)) {
-        await addDataToFirestore({emails,username},"vendor")
-      }else{
-        await addDataToFirestore({email,username},"users")
-      }      
+      await addDataToFirestore({emails,username},"vendor")
       // Store user info in localStorage or your desired state management
       localStorage.setItem('uid', user.uid);
       localStorage.setItem('email', user.email);
@@ -113,7 +113,60 @@ export async function sendreels() {
       alert("Google sign-in failed: " + error.message);
     }
   }
-  
+  export async function saveUserData(uid,userData,imageUpload) {
+    // Collect data from the form inputs
+    // const userData = {
+    //     image: imageUploadInput.value, // Handle file uploads separately
+    //     fullName: fullNameInput.value,
+    //     username: usernameInput.value,
+    //     phoneNumber: phoneNumberInput.value,
+    //     location: locationInput.value,
+    //     socialMedia: {
+    //         instagram: instagramInput.value,
+    //         twitter: twitterInput.value,
+    //         facebook: facebookInput.value,
+    //         linkedin: linkedinInput.value,
+    //         tiktok: tiktokInput.value
+    //     },
+    //     portfolio: portfolioInput.value,
+    //     contentCategories: Array.from(contentCategoriesInputs)
+    //                            .filter(input => input.checked)
+    //                            .map(input => input.value),
+    //     bio: bioInput.value,
+    //     experienceLevel: experienceLevelInput.value,
+    //     preferredPlatforms: {
+    //         facebook: platformFacebookInput.checked,
+    //         instagram: platformInstagramInput.checked,
+    //         tiktok: platformTikTokInput.checked
+    //     }
+    // };
+
+    // Save data to Firestore
+    try {
+//       const docRef = doc(db, "vendor", uid);
+if (imageUpload) {
+  const storageRef = ref(storage, `profileImages/${uid}/${imageUpload.name}`);
+  const uploadTask = await uploadBytes(storageRef, imageUpload);
+  var imageURL = await getDownloadURL(uploadTask.ref);
+  userData.imageURL =imageURL ;
+}
+// // Use setDoc to merge the data
+//     await setDoc(docRef, userData, { merge: true });
+      // const docRef = await setDoc(doc(collection(db, "vendor"), uid), userData, { merge: true });
+        // Use `doc` to get a reference to the user's document in the 'users' collection
+        const userDocRef = doc(db, 'vendor', uid);
+
+        // Use `setDoc` to save the user data
+        await setDoc(userDocRef, userData, { merge: true });
+      alert("User data successfully saved!");
+      window.location.reload();
+
+    } catch (error) {
+        console.error("Error saving user data: ", error);
+    }
+}
+
+
   
   // Function to add data to Firestore
   export async function addDataToFirestore(data, tabelname) {
@@ -208,7 +261,6 @@ export async function sendreels() {
     const storedUID = localStorage.getItem('uid');
     const storedEmail = localStorage.getItem('email');
     const storedusername = localStorage.getItem('username');
-  
     // Check if the user is signed in by retrieving the current user
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -234,12 +286,16 @@ export async function sendreels() {
           if (!window.location.href=="/signin.html" || !window.location.href=="/signup.html") {
             window.location.href="./signup.html";
         }
+        localStorage.clear();
           auth.signOut();
-          localStorage.clear();
         }
       } else {
         if (!window.location.href=="/signin.html" || !window.location.href=="/signup.html") {
             window.location.href="./signup.html";
+        }else{
+          localStorage.clear();
+          auth.signOut();
+          window.location.href="./signup.html";
         }
         // No user is signed in, ensure the "Sign Up" link is visible
 
@@ -257,9 +313,3 @@ window.onload = function() {
   // Get references to the elements
     checkifsingedin();
 };
-const form = document.getElementById('videoUploadForm');
-form.addEventListener('submit', function (event) {
-  alert()
-    event.preventDefault(); // Prevent default form submission
-    sendreels();
-});

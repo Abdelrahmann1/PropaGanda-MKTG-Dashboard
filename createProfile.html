@@ -497,7 +497,7 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" id="yourFormSubmitButton" class="btn btn-primary">Submit</button>
 
                             </form>
                         </div>
@@ -541,7 +541,7 @@
                                                     <div class="before-upload" id="before-upload3">
                                                         <i class="fa-solid fa-upload uploadicon"></i>
                                                         <p>Video must be up to 15 seconds long.</p>
-                                                        <input required type="file" class="media-upload"name="vid2"
+                                                        <input required type="file" class="media-upload" name="vid2"
                                                             accept="video/*" id="video-upload2" style="display:none;">
                                                     </div>
                                                     <div class="after-upload" id="after-upload2" style="display:none;">
@@ -614,17 +614,122 @@
             <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
             <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
             <script type="module">
-                import { checkifsingedin,sendreels } from "./js/firebase.js";
+                import { checkifsingedin, sendreels, saveUserData } from "./js/firebase.js";
                 window.checkifsingedin = checkifsingedin;
-                window.sendreels= sendreels;
+                window.sendreels = sendreels;
+                window.saveUserData = saveUserData;
             </script>
+
             <script src="js/main.js"></script>
 
             <script>
-        
+                document.getElementById('yourFormSubmitButton').addEventListener('click', function (event) {
+                    // alert()
+                    event.preventDefault(); // Prevent the form from submitting the traditional way
+                    const uid = localStorage.getItem('uid');
+
+                    // Get input elements
+                    const fullNameInput = document.getElementById("fullName");
+                    const usernameInput = document.getElementById("username");
+                    const phoneNumberInput = document.getElementById("phoneNumber");
+                    const locationInput = document.getElementById("location");
+                    const instagramInput = document.getElementById("instagram");
+                    const twitterInput = document.getElementById("twitter");
+                    const facebookInput = document.getElementById("facebook");
+                    const linkedinInput = document.getElementById("linkedin");
+                    const tiktokInput = document.getElementById("tiktok");
+                    const portfolioInput = document.getElementById("portfolio");
+                    const contentCategoriesInputs = document.querySelectorAll("input[name='contentCategories']");
+                    const bioInput = document.getElementById("bio");
+                    const experienceLevelInput = document.getElementById("experienceLevel");
+                    const platformFacebookInput = document.getElementById("platformFacebook");
+                    const platformInstagramInput = document.getElementById("platformInstagram");
+                    const platformTikTokInput = document.getElementById("platformTikTok");                    // Get values from inputs
+                    const imageUploadInput = document.getElementById("image-upload").files[0]; // For file inputs, get the first file
+                    // Text inputs
+                    const fullName = fullNameInput.value;
+                    const username = usernameInput.value;
+                    const phoneNumber = phoneNumberInput.value;
+                    const location = locationInput.value;
+                    const instagram = instagramInput.value;
+                    const twitter = twitterInput.value;
+                    const facebook = facebookInput.value;
+                    const linkedin = linkedinInput.value;
+                    const tiktok = tiktokInput.value;
+                    const portfolio = portfolioInput.value;
+                    const bio = bioInput.value;
+                    const imageURL = null;
+
+                    // Experience level dropdown
+                    const experienceLevel = experienceLevelInput.value;
+
+                    // Platform checkboxes
+                    const platformFacebook = platformFacebookInput.checked;
+                    const platformInstagram = platformInstagramInput.checked;
+                    const platformTikTok = platformTikTokInput.checked;
+
+                    // Content categories (assuming these are checkboxes)
+                    const contentCategories = Array.from(contentCategoriesInputs)
+                        .filter(input => input.checked)
+                        .map(input => input.value);
+
+                    // Image upload (file input)
+                    const imageUpload = imageUploadInput;  // This is a File object
+
+                    // // Log all the values
+                    // console.log("Full Name:", fullName);
+                    // console.log("Username:", username);
+                    // console.log("Phone Number:", phoneNumber);
+                    // console.log("Location:", location);
+                    // console.log("Instagram:", instagram);
+                    // console.log("Twitter:", twitter);
+                    // console.log("Facebook:", facebook);
+                    // console.log("LinkedIn:", linkedin);
+                    // console.log("TikTok:", tiktok);
+                    // console.log("Portfolio:", portfolio);
+                    // console.log("Bio:", bio);
+                    // console.log("Experience Level:", experienceLevel);
+                    // console.log("Platform - Facebook:", platformFacebook);
+                    // console.log("Platform - Instagram:", platformInstagram);
+                    // console.log("Platform - TikTok:", platformTikTok);
+                    // console.log("Content Categories:", contentCategories);
+                    // console.log("Image Upload:", imageUpload);
+
+
+                    const userData = {
+                        fullName,
+                        username,
+                        phoneNumber,
+                        location,
+                        instagram,
+                        twitter,
+                        facebook,
+                        linkedin,
+                        tiktok,
+                        portfolio,
+                        bio,
+                        experienceLevel,
+                        platformFacebook,
+                        platformInstagram,
+                        platformTikTok,
+                        contentCategories,
+                        imageURL: imageURL || null,  // Set imageURL if it exists, otherwise null
+                    };
+                    if (uid) {
+                        saveUserData(uid, userData, imageUpload)
+                    } else {
+                        console.error("No UID found in localStorage.");
+                    }
+                });
 
             </script>
             <!-- Template Javascript -->
 </body>
+<!-- const form = document.getElementById('videoUploadForm');
+form.addEventListener('submit', function (event) {
+  alert()
+    event.preventDefault(); // Prevent default form submission
+    sendreels();
+}); -->
 
 </html>
