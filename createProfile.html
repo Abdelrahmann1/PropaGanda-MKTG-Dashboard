@@ -512,61 +512,53 @@
                                         <h5 class="card-title">Upload Reel 1</h5>
                                         <form id="videoUploadForm">
                                             <div class="mb-3">
-                                                <!-- Image Upload Container -->
-
-                                                <!-- Video Upload Container -->
+                                                <!-- Video Upload Container 1 -->
                                                 <div class="upload-container" style="margin: 20px 0;">
-                                                    <div class="before-upload" id="before-upload">
+                                                    <div class="before-upload" id="before-upload1">
                                                         <i class="fa-solid fa-upload uploadicon"></i>
                                                         <p>Video must be up to 15 seconds long.</p>
-                                                        <input required type="file" class="media-upload" name="vid1"
-                                                            accept="video/*" id="video-upload" style="display:none;">
+                                                        <input type="file" class="media-upload" name="vid1"
+                                                            accept="video/*" id="video-upload1" style="display:none;">
                                                     </div>
-                                                    <div class="after-upload" id="after-upload2" style="display:none;">
-                                                        <video class="uploaded-media" id="uploaded-video" src=""
-                                                            alt="Uploaded Video" style="width:100%;" controls></video>
+                                                    <div class="after-upload" id="after-upload1" style="display:none;">
+                                                        <video class="uploaded-media" id="uploaded-video1" src=""
+                                                            style="width:100%;" controls></video>
                                                     </div>
                                                 </div>
-
-
-                                                <!-- Repeat the above structure for more upload containers -->
-                                                <!--                                                 
-                                                <input required type="file" class="form-control" id="videoUpload1"
-                                                    accept="video/*" onchange="validateVideo(this)">
-                                                <div class="form-text mt-2">Video must be up to 15 seconds long.</div> -->
                                             </div>
                                             <h5 class="card-title">Upload Reel 2</h5>
                                             <div class="mb-3">
                                                 <div class="upload-container" style="margin: 20px 0;">
-                                                    <div class="before-upload" id="before-upload3">
+                                                    <div class="before-upload" id="before-upload2">
                                                         <i class="fa-solid fa-upload uploadicon"></i>
                                                         <p>Video must be up to 15 seconds long.</p>
-                                                        <input required type="file" class="media-upload" name="vid2"
+                                                        <input type="file" class="media-upload" name="vid2"
                                                             accept="video/*" id="video-upload2" style="display:none;">
                                                     </div>
                                                     <div class="after-upload" id="after-upload2" style="display:none;">
-                                                        <video class="uploaded-media" id="uploaded-video" src=""
-                                                            alt="Uploaded Video" style="width:100%;" controls></video>
+                                                        <video class="uploaded-media" id="uploaded-video2" src=""
+                                                            style="width:100%;" controls></video>
                                                     </div>
                                                 </div>
                                             </div>
                                             <h5 class="card-title">Upload Reel 3</h5>
                                             <div class="mb-3">
                                                 <div class="upload-container" style="margin: 20px 0;">
-                                                    <div class="before-upload" id="before-upload2">
+                                                    <div class="before-upload" id="before-upload3">
                                                         <i class="fa-solid fa-upload uploadicon"></i>
                                                         <p>Video must be up to 15 seconds long.</p>
-                                                        <input required type="file" class="media-upload" name="vid3"
+                                                        <input type="file" class="media-upload" name="vid3"
                                                             accept="video/*" id="video-upload3" style="display:none;">
                                                     </div>
-                                                    <div class="after-upload" id="after-upload2" style="display:none;">
-                                                        <video class="uploaded-media" id="uploaded-video" src=""
-                                                            alt="Uploaded Video" style="width:100%;" controls></video>
+                                                    <div class="after-upload" id="after-upload3" style="display:none;">
+                                                        <video class="uploaded-media" id="uploaded-video3" src=""
+                                                            style="width:100%;" controls></video>
                                                     </div>
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Submit Videos</button>
                                         </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -614,17 +606,30 @@
             <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
             <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
             <script type="module">
-                import { checkifsingedin, sendreels, saveUserData } from "./js/firebase.js";
+                import { checkifsingedin, saveUserData, fetchUserData, saveReelsData,fetchUserReels } from "./js/firebase.js";
                 window.checkifsingedin = checkifsingedin;
-                window.sendreels = sendreels;
+                // window.sendreels = sendreels;
+                window.fetchUserReels = fetchUserReels;
                 window.saveUserData = saveUserData;
+                window.fetchUserData = fetchUserData;
+                window.saveReelsData = saveReelsData;
             </script>
 
             <script src="js/main.js"></script>
 
             <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const uid = localStorage.getItem('uid');
+                    const basiinfo = localStorage.getItem('BasicInfo');
+                    const reels = localStorage.getItem('reels');
+                    if (basiinfo) {
+                        fetchUserData(uid);
+                    }
+                    if (reels) {
+                        fetchUserReels(uid);
+                    }
+                });
                 document.getElementById('yourFormSubmitButton').addEventListener('click', function (event) {
-                    // alert()
                     event.preventDefault(); // Prevent the form from submitting the traditional way
                     const uid = localStorage.getItem('uid');
 
@@ -676,45 +681,28 @@
                     // Image upload (file input)
                     const imageUpload = imageUploadInput;  // This is a File object
 
-                    // // Log all the values
-                    // console.log("Full Name:", fullName);
-                    // console.log("Username:", username);
-                    // console.log("Phone Number:", phoneNumber);
-                    // console.log("Location:", location);
-                    // console.log("Instagram:", instagram);
-                    // console.log("Twitter:", twitter);
-                    // console.log("Facebook:", facebook);
-                    // console.log("LinkedIn:", linkedin);
-                    // console.log("TikTok:", tiktok);
-                    // console.log("Portfolio:", portfolio);
-                    // console.log("Bio:", bio);
-                    // console.log("Experience Level:", experienceLevel);
-                    // console.log("Platform - Facebook:", platformFacebook);
-                    // console.log("Platform - Instagram:", platformInstagram);
-                    // console.log("Platform - TikTok:", platformTikTok);
-                    // console.log("Content Categories:", contentCategories);
-                    // console.log("Image Upload:", imageUpload);
-
-
                     const userData = {
-                        fullName,
-                        username,
-                        phoneNumber,
-                        location,
-                        instagram,
-                        twitter,
-                        facebook,
-                        linkedin,
-                        tiktok,
-                        portfolio,
-                        bio,
-                        experienceLevel,
-                        platformFacebook,
-                        platformInstagram,
-                        platformTikTok,
-                        contentCategories,
-                        imageURL: imageURL || null,  // Set imageURL if it exists, otherwise null
+                        basicInfo: {
+                            fullName,
+                            username,
+                            phoneNumber,
+                            location,
+                            instagram,
+                            twitter,
+                            facebook,
+                            linkedin,
+                            tiktok,
+                            portfolio,
+                            bio,
+                            experienceLevel,
+                            platformFacebook,
+                            platformInstagram,
+                            platformTikTok,
+                            contentCategories,
+                            imageURL: imageURL || null,  // Set imageURL if it exists, otherwise null
+                        }
                     };
+
                     if (uid) {
                         saveUserData(uid, userData, imageUpload)
                     } else {
@@ -722,14 +710,43 @@
                     }
                 });
 
+
+
+
+                document.getElementById('videoUploadForm').addEventListener('submit', async function (event) {
+                    event.preventDefault();
+
+                    const uid = localStorage.getItem('uid');
+
+                    // Retrieve video files by their IDs
+                    const video1 = document.getElementById('video-upload1').files[0];
+                    const video2 = document.getElementById('video-upload2').files[0];
+                    const video3 = document.getElementById('video-upload3').files[0];
+
+                    // Store videos in an object
+                    const videos = {
+                        vid1: video1,
+                        vid2: video2,
+                        vid3: video3
+                    };
+
+                    // Check if there is a user ID and at least one video to upload
+                    if (uid && (video1 || video2 || video3)) {
+                        try {
+                            await saveReelsData(uid, videos);
+                            alert("Videos successfully uploaded!");
+                            window.location.reload(); // Reload after successful submission
+                        } catch (error) {
+                            console.error("Error uploading videos:", error);
+                        }
+                    } else {
+                        alert("Please upload at least one video.");
+                    }
+                });
+
+
             </script>
-            <!-- Template Javascript -->
 </body>
-<!-- const form = document.getElementById('videoUploadForm');
-form.addEventListener('submit', function (event) {
-  alert()
-    event.preventDefault(); // Prevent default form submission
-    sendreels();
-}); -->
+
 
 </html>

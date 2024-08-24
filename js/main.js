@@ -62,7 +62,6 @@
 
     
 })(jQuery);
-
 document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelectorAll('.upload-container').forEach(function(container) {
@@ -71,12 +70,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const fileInput = container.querySelector('.media-upload');
         const uploadedMedia = container.querySelector('.uploaded-media');
 
-        // console.log('Setting up container:', container); // Debug container setup
-
         if (beforeUpload) {
             beforeUpload.addEventListener('click', function() {
                 if (fileInput) {
                     fileInput.click(); // Trigger the file input click
+                }
+            });
+        }
+
+        if (afterUpload) {
+            afterUpload.addEventListener('click', function() {
+                if (fileInput) {
+                    fileInput.click(); // Allow picking a new file on click
                 }
             });
         }
@@ -93,31 +98,26 @@ document.addEventListener('DOMContentLoaded', function() {
                             const tempVideo = document.createElement('video');
                             tempVideo.src = e.target.result;
 
-                            // Check video duration after it's loaded
                             tempVideo.onloadedmetadata = function() {
                                 if (tempVideo.duration <= 15) {
                                     alert('The video must be longer than 15 seconds.');
                                     fileInput.value = ''; // Clear the input
                                     return;
                                 } else {
-                                    // Display the video if duration is valid
                                     if (uploadedMedia && uploadedMedia.tagName === 'VIDEO') {
                                         uploadedMedia.src = e.target.result;
                                         uploadedMedia.style.display = 'block';
                                     }
-
-                                    // Hide the before-upload container and show the after-upload container
                                     if (beforeUpload && afterUpload) {
                                         beforeUpload.style.display = 'none';
                                         afterUpload.style.display = 'block';
                                     }
                                 }
                             };
-                        }else if (file.type.startsWith('image/')) {
+                        } else if (file.type.startsWith('image/')) {
                             const tempImage = document.createElement('img');
                             tempImage.src = e.target.result;
                         
-                            // Check image dimensions after it's loaded
                             tempImage.onload = function() {
                                 const minWidth = 300;  // Example minimum width
                                 const minHeight = 300; // Example minimum height
@@ -127,13 +127,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                     fileInput.value = ''; // Clear the input
                                     return;
                                 } else {
-                                    // Display the image if dimensions are valid
                                     if (uploadedMedia && uploadedMedia.tagName === 'IMG') {
                                         uploadedMedia.src = e.target.result;
                                         uploadedMedia.style.display = 'block';
                                     }
-                        
-                                    // Hide the before-upload container and show the after-upload container
                                     if (beforeUpload && afterUpload) {
                                         beforeUpload.style.display = 'none';
                                         afterUpload.style.display = 'block';
@@ -141,7 +138,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 }
                             };
                         }
-                        
                     };
                     reader.readAsDataURL(file); // Read the file as a data URL
                 }
@@ -154,31 +150,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', function () {
     // Get the 'createaccprog' value from localStorage
-    // const progress = localStorage.getItem('createaccprog');
-    const progress = 99;
-    // alert(0);
-    // Parse it as an integer (assuming it's stored as a string)
-    const progressValue = parseInt(progress, 10);
+    if ( window.location.pathname=="/createProfile.html") {
+        if ( localStorage.getItem('BasicInfo')) {
+            if (localStorage.getItem('reels')) {
+                
+                var progress = 100;
+            }else
+            {
 
-    // Get the progress bar element
-    const progressBar = document.getElementById('pregresssbarcreate');
-
-    // Set the width of the progress bar and the displayed percentage
-    progressBar.style.width = progressValue + '%';
-    progressBar.textContent = progressValue + '%';
-
-    // Update the aria-valuenow attribute for accessibility
-    progressBar.setAttribute('aria-valuenow', progressValue);
-    // Get references to the icons
-    const hourglassIcon = document.querySelector('.hourglass');
-    const checkIcon = document.querySelector('.squarechecks');
-
-    // Check the progress value
-    if (progressValue >= 100) {
-        hourglassIcon.classList.add('d-none'); // Hide the hourglass icon
-        checkIcon.classList.remove('d-none');  // Show the check icon
-    } else {
-        checkIcon.classList.add('d-none'); // Hide the check icon
-        hourglassIcon.classList.remove('d-none');  // Show the hourglass icon
+                var progress =50;
+            }
+        }else{
+            var progress =0;
+        }
+        // const progress = 99;
+        // alert(0);
+        // Parse it as an integer (assuming it's stored as a string)
+        const progressValue = parseInt(progress, 10);
+    
+        // Get the progress bar element
+        const progressBar = document.getElementById('pregresssbarcreate');
+    
+        // Set the width of the progress bar and the displayed percentage
+        progressBar.style.width = progressValue + '%';
+        progressBar.textContent = progressValue + '%';
+    
+        // Update the aria-valuenow attribute for accessibility
+        progressBar.setAttribute('aria-valuenow', progressValue);
+        // Get references to the icons
+        const hourglassIcon = document.querySelector('.hourglass');
+        const checkIcon = document.querySelector('.squarechecks');
+    
+        // Check the progress value
+        if (progressValue >= 100) {
+            hourglassIcon.classList.add('d-none'); // Hide the hourglass icon
+            checkIcon.classList.remove('d-none');  // Show the check icon
+        } else {
+            checkIcon.classList.add('d-none'); // Hide the check icon
+            hourglassIcon.classList.remove('d-none');  // Show the hourglass icon
+        }
     }
 });
