@@ -44,66 +44,62 @@ const auth = getAuth(app); // Initialize Authentication
 const provider = new GoogleAuthProvider(); // Initialize Google Auth Provider
 const storage = getStorage(app); // Initialize Firebase Storage
 
-// Now you can use the `storage`, `db`, and `auth` objects in your code
-
-// Initialize Firestore
-
-function containsProsCom(email) {
-  const regex = /@pros\.com$/;
-  return regex.test(email);
-}
-async function addDataToFirestore2(data, tabelname,uid) {
+export async function savePackageData(uid, packageType, data) {
   try {
-    const docRef = await addDoc(collection(db, tabelname,uid), data);
-    console.log("Document successfully written!", docRef.id);
+    const userDocRef = doc(db, "ugc", uid);
+    const packageData = {};
+    packageData["packages"] = data;
+
+    await setDoc(userDocRef, packageData, { merge: true });
+    alert(`${packageType} package saved successfully!`);
+    window.location.reload();
   } catch (error) {
-    console.error("Error adding document:", error);
+    console.error(`Error saving ${packageType} package data: `, error);
   }
 }
-// export async function saveReelsData() {
-//   const uid= localStorage.getItem("uid");
-//   try {
-//     const reel = []; // Initialize the reel array
-//     const filesToUpload = [];
 
-//     document.querySelectorAll(".upload-container").forEach((container) => {
-//       const fileInput = container.querySelector(".media-upload");
-//       if (fileInput && fileInput.files.length > 0) {
-//         filesToUpload.push(fileInput.files[0]);
-//       }
-//     });
+// Function to fetch package data from Firestore
+export async function fetchPackageData(uid, packageType) {
+  try {
+    const userDocRef = doc(db, "ugc", uid);
+    const userDocSnap = await getDoc(userDocRef);
 
-//     // Check if no files are uploaded
-//     if (filesToUpload.length === 0) {
-//       throw new Error("Please upload all required videos.");
-//     }
+    if (userDocSnap.exists()) {
+      const userData = userDocSnap.data();
+      const packageData = userData["packages"][packageType];
 
-//     const uploadPromises = filesToUpload.map(async (file, index) => {
-//       const storage = getStorage();
-//       const storageRef = ref(storage, `${uid}/videos/video${index + 1}-${file.name}`);
-//       const snapshot = await uploadBytes(storageRef, file);
-//       const downloadURL = await getDownloadURL(snapshot.ref);
+      if (packageData) {
+        document.getElementById(`${packageType}Price`).value =
+          packageData.price || "";
+        document.getElementById(`${packageType}Length`).value =
+          packageData.length || "";
+        document.getElementById(`${packageType}Editing`).value =
+          packageData.editing || "";
+        document.getElementById(`${packageType}Revisions`).value =
+          packageData.revisions || "";
+        document.getElementById(`${packageType}Delivery`).value =
+          packageData.delivery || "";
+        document.getElementById(`${packageType}FaceAppearance`).value =
+          packageData.faceAppearance || "";
+        document.getElementById(`${packageType}VoiceOver`).value =
+          packageData.voiceOver || "";
 
-//       // Push video metadata to the reel array
-//       reel.push({ url: downloadURL, name: file.name });
+        localStorage.setItem(packageType + "package", 33);
+        if (localStorage.getItem(packageType + "package") == 99) {
+          localStorage.setItem("packageDone", true);
+        }
+      } else {
+        console.warn(`No data found for ${packageType} package`);
+      }
+    } else {
+      console.warn("No such document in Firestore!");
+    }
+  } catch (error) {
+    localStorage.removeItem(packageType + "package");
+    console.error(`Error fetching ${packageType} package data: `, error);
+  }
+}
 
-//       return { url: downloadURL, name: file.name };
-//     });
-
-//     await Promise.all(uploadPromises); // Wait for all uploads to complete
-
-//     const data = {
-//       reel, // Add the reel array to the data
-//       // Include any other form data you want to save to Firestore
-//     };
-
-//     await addDataToFirestore2(data, "ugc",uid);
-//     console.log("Form successfully submitted!");
-//   } catch (error) {
-//     console.error("Error submitting form:", error);
-//     alert("Error submitting form: " + error.message);
-//   }
-// }
 export async function signInWithGoogle() {
   try {
     const result = await signInWithPopup(auth, provider);
@@ -135,46 +131,48 @@ export async function signInWithGoogle() {
 export async function saveReelsData(uid, videos) {
   try {
     console.log("trying");
-    
-      const reelData = {};
-      const videoURLs = [];
 
-      // Iterate over the videos object
-      for (const key in videos) {
-          if (videos[key]) { // Check if the video exists (i.e., not null)
-              const video = videos[key];
-              const storageRef = ref(storage, `${uid}/userreels/${key}.mp4`); // Using the key to name the file
-              const uploadTask = await uploadBytes(storageRef, video);
-              const videoURL = await getDownloadURL(uploadTask.ref);
-              videoURLs.push(videoURL);
-          }
+    const reelData = {};
+    const videoURLs = [];
+
+    // Iterate over the videos object
+    for (const key in videos) {
+      if (videos[key]) {
+        // Check if the video exists (i.e., not null)
+        const video = videos[key];
+        const storageRef = ref(storage, `${uid}/userreels/${key}.mp4`); // Using the key to name the file
+        const uploadTask = await uploadBytes(storageRef, video);
+        const videoURL = await getDownloadURL(uploadTask.ref);
+        videoURLs.push(videoURL);
       }
+    }
 
-      reelData.videoURLs = videoURLs;
-      reelData.reels=50;
-      localStorage.setItem("reels",50);
-      const userDocRef = doc(db, "ugc", uid);
-      await setDoc(userDocRef, reelData, { merge: true });
+    reelData.videoURLs = videoURLs;
+    reelData.reels = 50;
+    localStorage.setItem("reels", 50);
+    const userDocRef = doc(db, "ugc", uid);
+    await setDoc(userDocRef, reelData, { merge: true });
   } catch (error) {
-      throw new Error("Failed to save reels data: " + error.message);
+    throw new Error("Failed to save reels data: " + error.message);
   }
 }
 
-export async function saveUserData(uid, userData, imageUpload) {
+export async function saveUserData(uid, userData, imageUpload, isnewimg) {
   try {
-    if (imageUpload) {
-      const storageRef = ref(
-        storage,
-        `${uid}/profileImages/${imageUpload.name}`
-      );
-      const uploadTask = await uploadBytes(storageRef, imageUpload);
-      var imageURL = await getDownloadURL(uploadTask.ref);
-      alert(imageURL)
-      userData.basicInfo.imageURL = imageURL;
+    if (isnewimg) {
+      if (imageUpload) {
+        const storageRef = ref(
+          storage,
+          `${uid}/profileImages/${imageUpload.name}`
+        );
+        const uploadTask = await uploadBytes(storageRef, imageUpload);
+        var imageURL = await getDownloadURL(uploadTask.ref);
+        userData.basicInfo.imageURL = imageURL;
+      }
     }
     const userDocRef = doc(db, "ugc", uid);
     await setDoc(userDocRef, userData, { merge: true });
-      localStorage.setItem("BasicInfo", 50);
+    localStorage.setItem("BasicInfo", 50);
 
     alert("User data successfully saved!");
     window.location.reload();
@@ -182,6 +180,213 @@ export async function saveUserData(uid, userData, imageUpload) {
     console.error("Error saving user data: ", error);
   }
 }
+
+export async function saveVerify(
+  uid,
+  userData,
+  isnewimg1,
+  isnewimg2,
+  imageUpload1,
+  imageUpload2
+) {
+  try {
+    if (isnewimg1) {
+      if (imageUpload1) {
+        const storageRef = ref(
+          storage,
+          `${uid}/verifyingimg/${imageUpload1.name}`
+        );
+        const uploadTask = await uploadBytes(storageRef, imageUpload1);
+        var imageURL1 = await getDownloadURL(uploadTask.ref);
+        userData.verify.imageURL1 = imageURL1;
+      }
+    }
+    if (isnewimg2) {
+      if (imageUpload2) {
+        const storageRef = ref(
+          storage,
+          `${uid}/verifyingimg/${imageUpload2.name}`
+        );
+        const uploadTask = await uploadBytes(storageRef, imageUpload2);
+        var imageURL2 = await getDownloadURL(uploadTask.ref);
+        userData.verify.imageURL2 = imageURL2;
+      }
+    }
+
+    const userDocRef = doc(db, "ugc", uid);
+    await setDoc(userDocRef, userData, { merge: true });
+    localStorage.setItem("verify", 100);
+
+    alert("User data successfully saved!");
+    window.location.reload();
+  } catch (error) {
+    console.error("Error saving user data: ", error);
+  }
+}
+
+export async function fetchverifydata(uid) {
+  try {
+    // Reference the user's document in Firestore using their UID
+    const userDocRef = doc(db, "ugc", uid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
+      let userData = userDocSnap.data();
+      userData = userData.verify;
+
+      // Populate form fields with the fetched data
+      document.getElementById("idNumber").value = userData.idNumber || "";
+      document.getElementById("detailedAddress").value =
+        userData.detailedAddress || "";
+      
+      // Function to populate the country and region dropdowns
+      function updateDropdowns() {
+        const issueCountry = document.getElementById("issueCountry");
+        const regionSelect = document.getElementById("region");
+        const selectedCountry = issueCountry.value;
+        const regions = {
+          egypt: [
+            "Cairo",
+            "Alexandria",
+            "Giza",
+            "Aswan",
+            "Luxor",
+            "Mansoura",
+            "Tanta",
+            "Suez",
+            "Port Said",
+            "Ismailia",
+            "Damanhur",
+            "Beni Suef",
+            "Minya",
+            "Assiut",
+            "Sohag",
+            "Qena",
+            "Damietta",
+            "Kafr El Sheikh",
+            "Sharqia",
+            "Monufia",
+          ],
+          saudiArabia: [
+            "Riyadh",
+            "Jeddah",
+            "Dammam",
+            "Mecca",
+            "Medina",
+            "Khobar",
+            "Dhahran",
+            "Jubail",
+            "Abha",
+            "Khamis Mushait",
+            "Najran",
+            "Buraidah",
+            "Hail",
+            "Tabuk",
+            "Arar",
+            "Jazan",
+            "Al Qunfudhah",
+          ],
+          uae: [
+            "Abu Dhabi",
+            "Dubai",
+            "Sharjah",
+            "Ajman",
+            "Umm Al-Quwain",
+            "Fujairah",
+            "Ras Al Khaimah",
+            "Al Ain",
+            "Khalifa City",
+            "Al Dhafra",
+            "Al Nahyan",
+            "Al Reem Island",
+          ],
+        };
+
+        function populateRegions(selectedCountry) {
+          const countryRegions = regions[selectedCountry] || [];
+
+          // Clear existing options
+          if (!userData.region) {
+            
+            regionSelect.innerHTML = '<option value="">Select Region</option>';
+          }else{
+            
+            regionSelect.innerHTML = `<option value="">${userData.region}</option>`;
+          }
+
+          // Add new options based on selected country
+          countryRegions.forEach(function (region) {
+            const option = document.createElement("option");
+            option.value = region.toLowerCase().replace(/\s+/g, "");
+            option.textContent = region;
+            regionSelect.appendChild(option);
+          });
+
+          // Set the saved region as selected
+          const savedRegion = userData.region;
+          if (savedRegion) {
+            const regionOption = Array.from(regionSelect.options).find(
+              (opt) => opt.textContent === savedRegion
+            );
+            if (regionOption) {
+              regionOption.selected = true;
+            }
+          }
+        }
+
+        // Update the country dropdown and populate regions based on it
+        issueCountry.value = userData.issueCountry || "";
+        populateRegions(issueCountry.value);
+      }
+
+      // Call the function to populate dropdowns
+      updateDropdowns();
+
+      // Set document type radio button
+      if (userData.documentType) {
+        document.querySelector(
+          `input[name="identificationPlan"][value="${userData.documentType}"]`
+        ).checked = true;
+      }
+
+      // Display the uploaded front image if it exists
+      if (userData.imageURL1) {
+        const uploadedImage = document.getElementById("fronimg");
+        const beforeUpload = document.getElementById("before-upload1");
+        const afterUpload = document.getElementById("after-upload1");
+        uploadedImage.src = userData.imageURL1;
+        uploadedImage.style.display = "block";
+
+        if (beforeUpload && afterUpload) {
+          beforeUpload.style.display = "none";
+          afterUpload.style.display = "block";
+        }
+      }
+
+      // Display the uploaded back image if it exists
+      if (userData.imageURL2) {
+        const uploadedBackImage = document.getElementById("backimg");
+        uploadedBackImage.src = userData.imageURL2;
+        uploadedBackImage.style.display = "block";
+
+        const beforeUploadBack = document.getElementById("before-upload2");
+        const afterUploadBack = document.getElementById("after-upload2");
+
+        if (beforeUploadBack && afterUploadBack) {
+          beforeUploadBack.style.display = "none";
+          afterUploadBack.style.display = "block";
+        }
+      }
+
+      console.log("User data loaded successfully!");
+    } else {
+      console.log("No such document found!");
+    }
+  } catch (error) {
+    console.error("Error fetching user data: ", error);
+  }
+}
+
 
 export async function fetchUserReels(uid) {
   try {
@@ -191,27 +396,34 @@ export async function fetchUserReels(uid) {
     if (userDocSnap.exists()) {
       const userData = userDocSnap.data();
 
-
       // Loop through video URLs and set them
       for (let index = 0; index < 3; index++) {
         if (userData.videoURLs && userData.videoURLs[index]) {
-
-          const uploadedVideo = document.getElementById(`uploaded-video${index + 1}`);
+          const uploadedVideo = document.getElementById(
+            `uploaded-video${index + 1}`
+          );
 
           if (uploadedVideo) {
             uploadedVideo.src = userData.videoURLs[index];
             uploadedVideo.style.display = "block";
             uploadedVideo.load(); // Ensure the video is loaded
 
-            const beforeUpload = document.getElementById(`before-upload${index + 1}`);
-            const afterUpload = document.getElementById(`after-upload${index + 1}`);
+            const beforeUpload = document.getElementById(
+              `before-upload${index + 1}`
+            );
+            const afterUpload = document.getElementById(
+              `after-upload${index + 1}`
+            );
 
             if (beforeUpload && afterUpload) {
               beforeUpload.style.display = "none";
               afterUpload.style.display = "block";
             }
+            localStorage.setItem("reels", 50);
           } else {
-            console.error(`Video element with ID 'uploaded-video${index + 1}' not found`);
+            console.error(
+              `Video element with ID 'uploaded-video${index + 1}' not found`
+            );
           }
         } else {
           console.warn(`No video URL found for index ${index}`);
@@ -258,11 +470,11 @@ export async function fetchUserData(uid) {
 
       // Set platform checkboxes
       document.getElementById("platformFacebook").checked =
-        userData.basicInfo.platformFacebook || false;
+        userData.basicInfo.preferedplatfrom.Facebook || false;
       document.getElementById("platformInstagram").checked =
-        userData.basicInfo.platformInstagram || false;
+        userData.basicInfo.preferedplatfrom.Instagram || false;
       document.getElementById("platformTikTok").checked =
-        userData.basicInfo.platformTikTok || false;
+        userData.basicInfo.preferedplatfrom.TikTok || false;
 
       // Set content categories checkboxes
       const contentCategoriesInputs = document.querySelectorAll(
@@ -291,6 +503,7 @@ export async function fetchUserData(uid) {
           }
         }
       }
+      localStorage.setItem("BasicInfo", 50);
     } else {
       console.log("No such document!");
     }
@@ -429,6 +642,8 @@ export async function checkifsingedin() {
             !window.location.href == "/signin.html" ||
             !window.location.href == "/signup.html"
           ) {
+            localStorage.clear();
+            auth.signOut();
             window.location.href = "./signup.html";
           }
           localStorage.clear();

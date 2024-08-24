@@ -27,6 +27,7 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 
     <!-- Template Stylesheet -->
@@ -70,17 +71,19 @@
 
                     <a href="createProfile.html" class="nav-item nav-link active"><i
                             class="fa fa-user-plus me-2"></i>Create
-                        Profile <i class="fa-solid fa-hourglass-end hourglass"></i><i
-                            class="fa-solid fa-square-check squarechecks d-none"></i></a>
+                        Profile <i class="fa-solid fa-hourglass-end hourglass createHourglass"></i><i
+                            class="fa-solid fa-square-check squarechecks d-none createCheck"></i></a>
 
                     <a href="identity_verification.html" class="nav-item nav-link"><i
                             class="fa fa-id-card me-2"></i>Verify Account <i
-                            class="fa-solid fa-hourglass-end hourglass"></i><i
-                            class="fa-solid fa-square-check squarechecks d-none"></i></a>
+                            class="fa-solid fa-hourglass-end hourglass walletHourglass"></i><i
+                            class="fa-solid fa-square-check squarechecks d-none walletCheck"></i></a>
 
 
                     <a href="create_packages.html" class="nav-item nav-link"><i class="fa fa-box me-2"></i>Create
-                        Packages</a>
+                        Packages<i
+                        class="fa-solid fa-hourglass-end hourglass packagesHourglass"></i><i
+                        class="fa-solid fa-square-check squarechecks d-none packagesCheck"></i></a>
 
                     <a href="my_wallet.html" class="nav-item nav-link"><i class="fa fa-wallet me-2"></i>My Wallet</a>
 
@@ -649,8 +652,16 @@
                     const experienceLevelInput = document.getElementById("experienceLevel");
                     const platformFacebookInput = document.getElementById("platformFacebook");
                     const platformInstagramInput = document.getElementById("platformInstagram");
-                    const platformTikTokInput = document.getElementById("platformTikTok");                    // Get values from inputs
-                    const imageUploadInput = document.getElementById("image-upload").files[0]; // For file inputs, get the first file
+                    const platformTikTokInput = document.getElementById("platformTikTok");  
+                    var isnewimg=false;                  // Get values from inputs
+                    var imageUpload ; // For file inputs, get the first file
+                    if (document.getElementById("image-upload").files[0]) {
+                        imageUpload = document.getElementById("image-upload").files[0]; // For file inputs, get the first file
+                        isnewimg=true;                  // Get values from inputs
+                    }else{
+                         imageUpload = document.getElementById("uploaded-image").src; // For file inputs, get the first file
+
+                    }
                     // Text inputs
                     const fullName = fullNameInput.value;
                     const username = usernameInput.value;
@@ -669,9 +680,9 @@
                     const experienceLevel = experienceLevelInput.value;
 
                     // Platform checkboxes
-                    const platformFacebook = platformFacebookInput.checked;
-                    const platformInstagram = platformInstagramInput.checked;
-                    const platformTikTok = platformTikTokInput.checked;
+                    const Facebook = platformFacebookInput.checked;
+                    const Instagram = platformInstagramInput.checked;
+                    const  TikTok = platformTikTokInput.checked;
 
                     // Content categories (assuming these are checkboxes)
                     const contentCategories = Array.from(contentCategoriesInputs)
@@ -679,8 +690,7 @@
                         .map(input => input.value);
 
                     // Image upload (file input)
-                    const imageUpload = imageUploadInput;  // This is a File object
-
+                    
                     const userData = {
                         basicInfo: {
                             fullName,
@@ -695,16 +705,17 @@
                             portfolio,
                             bio,
                             experienceLevel,
-                            platformFacebook,
-                            platformInstagram,
-                            platformTikTok,
+                            preferedplatfrom:{
+                                Facebook,
+                                Instagram,
+                                TikTok,
+                            },
                             contentCategories,
-                            imageURL: imageURL || null,  // Set imageURL if it exists, otherwise null
                         }
                     };
 
                     if (uid) {
-                        saveUserData(uid, userData, imageUpload)
+                        saveUserData(uid, userData, imageUpload,isnewimg)
                     } else {
                         console.error("No UID found in localStorage.");
                     }

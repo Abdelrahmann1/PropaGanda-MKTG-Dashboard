@@ -147,42 +147,92 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
 document.addEventListener('DOMContentLoaded', function () {
-    // Get the 'createaccprog' value from localStorage
-    if ( window.location.pathname=="/createProfile.html") {
-        if ( localStorage.getItem('BasicInfo')) {
-            if (localStorage.getItem('reels')) {
-                
-                var progress = 100;
-            }else
-            {
 
-                var progress =50;
-            }
-        }else{
-            var progress =0;
+})
+document.addEventListener('DOMContentLoaded', function () {
+    // Determine the current page
+    const path = window.location.pathname;
+    const isProfilePage = path === "/createProfile.html";
+    const isPackagePage = path === "/create_packages.html";
+    const isidentity = path === "/identity_verification.html";
+    
+    let progress = 0;
+     if (isidentity) {
+         if (localStorage.getItem('verify')) {
+            progress =  100;
         }
-        // const progress = 99;
-        // alert(0);
-        // Parse it as an integer (assuming it's stored as a string)
-        const progressValue = parseInt(progress, 10);
+    }
+    if (isProfilePage) {
+        if (localStorage.getItem('BasicInfo')) {
+            progress = localStorage.getItem('reels') ? 100 : 50;
+        }
+        } 
+    else if (isPackagePage) {
+        if (localStorage.getItem('basicpackage')) {
+            progress += 33.33;
+        }
+        if (localStorage.getItem('standardpackage')) {
+            progress += 33.33;
+        }
+        if (localStorage.getItem('premiumpackage')) {
+            progress += 33.33;
+        }
+        if (progress >= 99.99) {
+            progress=100;
+        }
+    }
     
-        // Get the progress bar element
-        const progressBar = document.getElementById('pregresssbarcreate');
+    // Get the progress bar element
+    const progressBar = document.getElementById('pregresssbarcreate');
     
+    if (progressBar) {
         // Set the width of the progress bar and the displayed percentage
-        progressBar.style.width = progressValue + '%';
-        progressBar.textContent = progressValue + '%';
+        progressBar.style.width = progress + '%';
+        progressBar.textContent = progress + '%';
     
         // Update the aria-valuenow attribute for accessibility
-        progressBar.setAttribute('aria-valuenow', progressValue);
-        // Get references to the icons
-        const hourglassIcon = document.querySelector('.hourglass');
-        const checkIcon = document.querySelector('.squarechecks');
+        progressBar.setAttribute('aria-valuenow', progress);
+    }
+
+    // Get references to the icons
+});
+document.addEventListener('DOMContentLoaded', function () {
+    // Call the function to update icons based on localStorage values
+    if (localStorage.getItem('reels') && localStorage.getItem('BasicInfo')) {
+        localStorage.setItem('createDone',true);
+    }
+    if (localStorage.getItem('standardpackage') && localStorage.getItem('basicpackage')&& localStorage.getItem('premiumpackage')) {
+        localStorage.setItem('packageDone',true);
+    }
+    updateProgressIcons();
+
+});
+
+function updateProgressIcons() {
+    // Get the progress status from localStorage
+    const isBasicDone = localStorage.getItem('createDone') === 'true';
+    const isStandardDone = localStorage.getItem('verify') === 'true';
+    const isPremiumDone = localStorage.getItem('packageDone') === 'true';
     
-        // Check the progress value
-        if (progressValue >= 100) {
+    // Update icons for Basic Package
+    // alert( isBasicDone)
+    updateIcons('create', isBasicDone);
+    
+    // Update icons for Standard Package
+    updateIcons('wallet', isStandardDone);
+    
+    // Update icons for Premium Package
+    updateIcons('packages', isPremiumDone);
+}
+
+function updateIcons(packageType, isDone) {
+    // Select the hourglass and check icons for the given package type
+    const hourglassIcon = document.querySelector(`.${packageType}Hourglass`);
+    const checkIcon = document.querySelector(`.${packageType}Check`);
+    
+    if (hourglassIcon && checkIcon) {
+        if (isDone) {
             hourglassIcon.classList.add('d-none'); // Hide the hourglass icon
             checkIcon.classList.remove('d-none');  // Show the check icon
         } else {
@@ -190,4 +240,5 @@ document.addEventListener('DOMContentLoaded', function () {
             hourglassIcon.classList.remove('d-none');  // Show the hourglass icon
         }
     }
-});
+}
+
