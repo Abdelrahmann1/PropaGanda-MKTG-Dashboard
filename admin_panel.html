@@ -188,54 +188,70 @@
             <!-- UGC Content Management Start -->
             <div class="container-fluid pt-4 px-4" id="ugcManagement">
                 <div class="bg-light text-center rounded p-4 mb-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">UGC Content Management</h6>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-dark">
-                                    <th scope="col">Content ID</th>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Creator</th>
-                                    <th scope="col">Date Uploaded</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>101</td>
-                                    <td>Video Ad</td>
-                                    <td>John Doe</td>
-                                    <td>01 Jan 2024</td>
-                                    <td>Pending Approval</td>
-                                    <td>
-                                        <a class="btn btn-sm btn-success" href="#">Approve</a>
-                                        <a class="btn btn-sm btn-danger" href="#">Delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>102</td>
-                                    <td>Product Review</td>
-                                    <td>Jane Smith</td>
-                                    <td>02 Jan 2024</td>
-                                    <td>Approved</td>
-                                    <td>
-                                        <a class="btn btn-sm btn-danger" href="#">Delete</a>
-                                    </td>
-                                </tr>
-                                <!-- Add more rows as needed -->
-                            </tbody>
-                        </table>
-                    </div>
+                  <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">UGC Content Management</h6>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                      <thead>
+                        <tr class="text-dark">
+                          <th scope="col">Content ID</th>
+                          <th scope="col">Creator</th>
+                          <th scope="col">Date Uploaded</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="ugcTableBody">
+                        <!-- Dynamic rows will be added here -->
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-            </div>
+              </div>
+              
+              <div class="container-fluid pt-4 px-4" id="ugcApprovedManagement">
+                <div class="bg-light text-center rounded p-4 mb-4">
+                  <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">UGC Approved Management</h6>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                      <thead>
+                        <tr class="text-dark">
+                          <th scope="col">Content ID</th>
+                          <th scope="col">Creator</th>
+                          <th scope="col">Date Uploaded</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="ugcApprvTableBody">
+                        <!-- Dynamic rows will be added here -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             <!-- UGC Content Management End -->
             
         </div>
         <!-- Content End -->
     </div>
+  <div  class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"id="modalContent">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
     
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -250,6 +266,16 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script type="module">
+        import {  fetchUGCContent } from "./js/firebase.js";
+        window.fetchUGCContent= fetchUGCContent;
+    </script>
+    <!-- Template Javascript -->
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+            fetchUGCContent();
+});
+    </script>
 </body>
 
 </html>

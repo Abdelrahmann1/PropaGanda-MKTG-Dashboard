@@ -11,6 +11,8 @@ import {
   collection,
   query,
   where,
+  updateDoc,
+  deleteDoc,
   getDoc,
   getDocs,
   addDoc,
@@ -21,7 +23,8 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  createUserWithEmailAndPassword,
+  createUserWithEmailAndPassword, 
+  deleteUser, reauthenticateWithCredential, EmailAuthProvider,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
@@ -100,6 +103,198 @@ export async function fetchPackageData(uid, packageType) {
   }
 }
 
+// Function to handle content viewing
+function viewContent(contentID, data) {
+  const modalContent = document.getElementById("modalContent");
+  
+  // Clear the modal content before displaying new data
+  modalContent.innerHTML = '';
+
+  // Function to create a labeled input dynamically
+  function createLabeledInput(name, value, type = "text") {
+    const wrapper = document.createElement("div");
+    wrapper.className = "mb-3";
+
+    const label = document.createElement("label");
+    label.for = name;
+    label.className = "form-label";
+    label.textContent = name.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+
+    const input = document.createElement("input");
+    input.type = type;
+    input.name = name;
+    input.value = value;
+    input.disabled= true;
+    input.className = "form-control";
+
+    // Append label and input to the wrapper div
+    wrapper.appendChild(label);
+    wrapper.appendChild(input);
+    
+    return wrapper;
+  }
+
+  // Iterate over data to create labeled inputs dynamically
+  Object.keys(data).forEach(key => {
+    if (typeof data[key] === 'object' && data[key] !== null) {
+      Object.keys(data[key]).forEach(subKey => {
+        const value = data[key][subKey];
+        if (typeof value === 'string' || typeof value === 'number') {
+          modalContent.appendChild(createLabeledInput(subKey, value));
+        }
+      });
+    } else if (typeof data[key] === 'string' || typeof data[key] === 'number') {
+      modalContent.appendChild(createLabeledInput(key, data[key]));
+    }
+  });
+
+  // Show the modal
+  const modal = new bootstrap.Modal(document.getElementById("viewModal"));
+  modal.show();
+}
+
+
+// Function to handle content approval
+async function approveContent(contentID) {
+  try {
+    const contentRef = doc(db, "ugc", contentID);
+    await updateDoc(contentRef, {
+      status: "approved", // Assuming you have a status field to update
+    });
+    alert(`Content ${contentID} approved!`);
+  } catch (error) {
+    alert("Error approving content: "+ error);
+  }
+}
+async function holdContent(contentID) {
+  try {
+    const contentDocRef = doc(db, "ugc", contentID);
+    await updateDoc(contentDocRef, {
+      status: "hold",
+    });
+    alert(`Content ID ${contentID} is now on hold.`);
+    // Optionally, you can refresh the table or provide feedback to the user
+  } catch (error) {
+    alert("Error putting content on hold: "+ error);
+  }
+}
+
+async function Countinuecontent(contentID) {
+  try {
+    const contentDocRef = doc(db, "ugc", contentID);
+    await updateDoc(contentDocRef, {
+      status: "approved",
+    });
+    alert(`Content ID ${contentID} is now countinued.`);
+    // Optionally, you can refresh the table or provide feedback to the user
+  } catch (error) {
+    alert("Error putting content on hold: "+ error);
+  }
+}
+
+// On your Node.js server (server-side code)
+
+
+
+
+
+
+export async function fetchUGCContent() {
+  try {
+    const ugcCollectionRef = collection(db, "ugc");
+    const ugcSnapshot = await getDocs(ugcCollectionRef);
+
+    const ugcTableBody = document.getElementById("ugcTableBody");
+    const ugcApprvTableBody = document.getElementById("ugcApprvTableBody");
+
+    ugcTableBody.innerHTML = ""; // Clear existing rows in non-approved table
+    ugcApprvTableBody.innerHTML = ""; // Clear existing rows in approved table
+
+    ugcSnapshot.forEach((doc) => {
+      const data = doc.data();
+      const contentID = doc.id;
+      const creator = data.username || "Unknown";
+      const createdAt = data.creationTime
+        ? data.creationTime
+        : "Unknown";
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${contentID}</td>
+        <td>${creator}</td>
+        <td>${createdAt}</td>
+      `;
+
+      const actionCell = document.createElement("td");
+
+      if (data.status === "approved" || data.status === "hold") {
+        // For approved documents, add "View", "Hold", and "Delete" buttons
+        if (data.status === "approved") {
+          actionCell.innerHTML = `
+            <a class="btn btn-sm btn-primary" href="#" id="view-${contentID}">View</a>
+            <a class="btn btn-sm btn-warning" href="#" id="hold-${contentID}">Hold</a>
+          `;
+          ugcApprvTableBody.appendChild(row);
+        } else {
+          actionCell.innerHTML = `
+            <a class="btn btn-sm btn-primary" href="#" id="view-${contentID}">View</a>
+            <a class="btn btn-sm btn-warning" href="#" id="countinue-${contentID}">countinue</a>
+          `;
+          ugcApprvTableBody.appendChild(row);
+        }
+      } else {
+        // For non-approved documents, add "View", "Approve", and "Delete" buttons
+        actionCell.innerHTML = `
+          <a class="btn btn-sm btn-primary" href="#" id="view-${contentID}">View</a>
+          <a class="btn btn-sm btn-success" href="#" id="approve-${contentID}">Approve</a>
+        `;
+        ugcTableBody.appendChild(row);
+      }
+
+      row.appendChild(actionCell);
+
+      // Add event listeners for buttons
+      document
+        .getElementById(`view-${contentID}`)
+        .addEventListener("click", () => {
+          viewContent(contentID, data);
+          
+        });
+
+      if (data.status === "approved" || data.status === "hold") {
+        if (data.status === "approved") {
+          document
+            .getElementById(`hold-${contentID}`)
+            .addEventListener("click", async () => {
+              await holdContent(contentID);
+              window.location.reload();
+              
+            });
+          }else{
+            document
+            .getElementById(`countinue-${contentID}`)
+            .addEventListener("click", async () => {
+              await Countinuecontent(contentID);
+              window.location.reload();
+              
+            });
+          }
+        } else {
+
+          document
+          .getElementById(`approve-${contentID}`)
+          .addEventListener("click", async () => {
+            await approveContent(contentID);
+            window.location.reload();
+            
+          });
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching UGC content: ", error);
+  }
+}
+
 export async function signInWithGoogle() {
   try {
     const result = await signInWithPopup(auth, provider);
@@ -112,7 +307,9 @@ export async function signInWithGoogle() {
     const user = result.user;
     var emails = user.email;
     var username = user.displayName;
-    await addDataToFirestore({ emails, username }, "ugc", user.uid);
+    const creationTime = user.metadata.creationTime;
+
+    await addDataToFirestore({ emails, username,creationTime }, "ugc", user.uid);
     // Store user info in localStorage or your desired state management
     localStorage.setItem("uid", user.uid);
     localStorage.setItem("email", user.email);
@@ -238,7 +435,7 @@ export async function fetchverifydata(uid) {
       document.getElementById("idNumber").value = userData.idNumber || "";
       document.getElementById("detailedAddress").value =
         userData.detailedAddress || "";
-      
+
       // Function to populate the country and region dropdowns
       function updateDropdowns() {
         const issueCountry = document.getElementById("issueCountry");
@@ -307,10 +504,8 @@ export async function fetchverifydata(uid) {
 
           // Clear existing options
           if (!userData.region) {
-            
             regionSelect.innerHTML = '<option value="">Select Region</option>';
-          }else{
-            
+          } else {
             regionSelect.innerHTML = `<option value="">${userData.region}</option>`;
           }
 
@@ -386,7 +581,6 @@ export async function fetchverifydata(uid) {
     console.error("Error fetching user data: ", error);
   }
 }
-
 
 export async function fetchUserReels(uid) {
   try {
@@ -512,7 +706,7 @@ export async function fetchUserData(uid) {
   }
 }
 // Function to add data to Firestore
-export async function addDataToFirestore(data, tabelname, uid) {
+export async function addDataToFirestore(data, tabelname, uid,) {
   // alert("Attempting to add document...");
   try {
     const docRef = doc(db, tabelname, uid);
@@ -525,7 +719,10 @@ export async function addDataToFirestore(data, tabelname, uid) {
     console.error("Error adding document:", error);
   }
 }
-
+async function containsProsCom(email) {
+  const regex = /@pros\.com$/;
+  return regex.test(email);
+}
 // Function to create a new user with email and password
 export async function createNewUser(email, password, username) {
   try {
@@ -535,11 +732,19 @@ export async function createNewUser(email, password, username) {
       password
     );
     const user = userCredential.user;
-
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    
+    const CreationTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    
     if (containsProsCom(email)) {
-      await addDataToFirestore({ email, username }, "ugc");
+      await addDataToFirestore({ email, username,CreationTime }, "ugc");
     } else {
-      await addDataToFirestore({ email, username }, "users");
+      await addDataToFirestore({ email, username,CreationTime}, "users");
     }
     alert("User created successfully");
     window.location.href = "/signin.html";
