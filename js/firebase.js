@@ -732,6 +732,7 @@ export async function createNewUser(email, password, username) {
       password
     );
     const user = userCredential.user;
+    const now = new Date();  // Create a new Date object
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
     const day = String(now.getDate()).padStart(2, '0');
@@ -740,14 +741,20 @@ export async function createNewUser(email, password, username) {
     const seconds = String(now.getSeconds()).padStart(2, '0');
     
     const CreationTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    
-    if (containsProsCom(email)) {
-      await addDataToFirestore({ email, username,CreationTime }, "ugc");
-    } else {
-      await addDataToFirestore({ email, username,CreationTime}, "users");
+    try{
+      
+      if (!containsProsCom(email)) {
+        console.log(CreationTime);
+        await addDataToFirestore({ email, username,CreationTime }, "ugc");
+      } else {
+        await addDataToFirestore({ email, username,CreationTime}, "users");
+        console.log(email,username);
+      }
+    }catch (error) {
+      alert("Error creating new user: " + error.message);
     }
     alert("User created successfully");
-    window.location.href = "/signin.html";
+    // window.location.href = "/signin.html";
   } catch (error) {
     alert("Error creating new user: " + error.message);
     window.location.reload();
@@ -780,11 +787,9 @@ export async function signInUser(email, password, checkbox) {
       }
 
       // If the checkbox is checked, store user details in localStorage
-      if (checkbox) {
         localStorage.setItem("uid", user.uid);
         localStorage.setItem("email", user.email);
         localStorage.setItem("username", username); // Store the username
-      }
 
       // Notify the user of successful sign-in
       alert("User signed in successfully: " + username);
