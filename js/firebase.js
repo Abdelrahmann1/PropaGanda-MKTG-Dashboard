@@ -755,10 +755,10 @@ export async function createNewUser(email, password, username) {
     }
     alert("User created successfully");
     localStorage.setItem("uid", user.uid);
-    localStorage.setItem("email", user.email);
+    localStorage.setItem("email", email);
     localStorage.setItem("username", username); // Store the username
 
-    window.location.href = "/index.html";
+    window.location.href = "./index.html";
   } catch (error) {
     alert("Error creating new user: " + error.message);
     window.location.reload();
