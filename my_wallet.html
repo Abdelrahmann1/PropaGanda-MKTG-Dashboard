@@ -51,7 +51,8 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle profile-pic" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle profile-pic" src="img/user.jpg" alt=""
+                            style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
@@ -74,9 +75,10 @@
                     <a href="create_packages.html" class="nav-item nav-link"><i class="fa fa-box me-2"></i>Create
                         Packages</a>
 
-                    <a href="my_wallet.html" class="nav-item nav-link active"><i class="fa fa-wallet me-2"></i>My Wallet</a>
+                    <a href="my_wallet.html" class="nav-item nav-link active"><i class="fa fa-wallet me-2"></i>My
+                        Wallet</a>
 
-               
+
                     <a href="support.html" class="nav-item nav-link"><i class="fa fa-headset me-2"></i>Support
                     </a>
 
@@ -100,14 +102,14 @@
                     <input class="form-control border-0" type="search" placeholder="Search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
-                    
+
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="profile-pic rounded-circle me-lg-2" src="img/user.jpg" alt=""
                                 style="width: 40px; height: 40px;">
                             <span class="d-none userEmail d-lg-inline-flex">John Doe</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">                           
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
@@ -127,7 +129,7 @@
                         <div class="card shadow-sm mb-4">
                             <div class="card-body">
                                 <h5 class="card-title">Current Balance</h5>
-                                <h4 class="card-text">$1,234.56</h4>
+                                <h4 class="card-text" id="currentBalance">$1,234.56</h4>
                                 <p class="text-muted">Available balance for withdrawal</p>
                             </div>
                         </div>
@@ -178,61 +180,67 @@
                         </div>
                     </div>
 
-                <!-- Request Payout -->
-<div class="col-md-6">
-    <div class="card shadow-sm mb-4">
-        <div class="card-body">
-            <h5 class="card-title">Request Payout</h5>
-            <form id="payoutRequestForm">
-                <div class="mb-3">
-                    <label for="payoutAmount" class="form-label">Amount</label>
-                    <input type="number" class="form-control" id="payoutAmount" placeholder="Enter amount" required>
-                </div>
-            
-                <div class="mb-3">
-                    <label for="paymentMethod" class="form-label">Payment Method</label>
-                    <select class="form-select" id="paymentMethod" required>
-                        <option value="" disabled selected>Select method</option>
-                        <option value="wallets">Wallets</option>
-                        <option value="instapay">Instapay</option>
-                        <option value="bank">Bank Transfer</option>
-                    </select>
-                </div>
-            
-                <!-- Instapay Input -->
-                <div class="mb-3" id="instapayInput" style="display: none;">
-                    <label for="instapayNumber" class="form-label">Instapay Number</label>
-                    <input type="text" class="form-control" id="instapayNumber" placeholder="Enter your Instapay number">
-                </div>
-            
-                <!-- Wallets Input -->
-                <div class="mb-3" id="walletInput" style="display: none;">
-                    <label for="walletNumber" class="form-label">Wallet Number</label>
-                    <input type="text" class="form-control" id="walletNumber" placeholder="Enter your wallet number">
-                </div>
-            
-                <!-- Bank Transfer Inputs -->
-                <div id="bankInputs" style="display: none;">
-                    <div class="mb-3">
-                        <label for="bankAccountName" class="form-label">Account Name</label>
-                        <input type="text" class="form-control" id="bankAccountName" placeholder="Enter account name">
+                    <!-- Request Payout -->
+                    <div class="col-md-6">
+                        <div class="card shadow-sm mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Request Payout</h5>
+                                <form id="payoutRequestForm">
+                                    <div class="mb-3">
+                                        <label for="payoutAmount" class="form-label">Amount</label>
+                                        <input type="number" class="form-control" id="payoutAmount"
+                                            placeholder="Enter amount" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="paymentMethod" class="form-label">Payment Method</label>
+                                        <select class="form-select" id="paymentMethod" required>
+                                            <option value="" disabled selected>Select method</option>
+                                            <option value="wallets">Wallets</option>
+                                            <option value="instapay">Instapay</option>
+                                            <option value="bank">Bank Transfer</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Instapay Input -->
+                                    <div class="mb-3" id="instapayInput" style="display: none;">
+                                        <label for="instapayNumber" class="form-label">Instapay Number</label>
+                                        <input type="text" class="form-control" id="instapayNumber"
+                                            placeholder="Enter your Instapay number">
+                                    </div>
+
+                                    <!-- Wallets Input -->
+                                    <div class="mb-3" id="walletInput" style="display: none;">
+                                        <label for="walletNumber" class="form-label">Wallet Number</label>
+                                        <input type="text" class="form-control" id="walletNumber"
+                                            placeholder="Enter your wallet number">
+                                    </div>
+
+                                    <!-- Bank Transfer Inputs -->
+                                    <div id="bankInputs" style="display: none;">
+                                        <div class="mb-3">
+                                            <label for="bankAccountName" class="form-label">Account Name</label>
+                                            <input type="text" class="form-control" id="bankAccountName"
+                                                placeholder="Enter account name">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="bankAccountNumber" class="form-label">Account Number</label>
+                                            <input type="text" class="form-control" id="bankAccountNumber"
+                                                placeholder="Enter account number">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="bankName" class="form-label">Bank Name</label>
+                                            <input type="text" class="form-control" id="bankName"
+                                                placeholder="Enter bank name">
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Request Payout</button>
+                                </form>
+
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="bankAccountNumber" class="form-label">Account Number</label>
-                        <input type="text" class="form-control" id="bankAccountNumber" placeholder="Enter account number">
-                    </div>
-                    <div class="mb-3">
-                        <label for="bankName" class="form-label">Bank Name</label>
-                        <input type="text" class="form-control" id="bankName" placeholder="Enter bank name">
-                    </div>
-                </div>
-            
-                <button type="submit" class="btn btn-primary">Request Payout</button>
-            </form>
-            
-        </div>
-    </div>
-</div>
 
                 </div>
             </div>
@@ -269,68 +277,99 @@
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script type="module">
+        import { checkifsingedin, addRequestbalance ,showbalance } from "./js/firebase.js";
+        window.addRequestbalance = addRequestbalance;
+        window.checkifsingedin = checkifsingedin;
+        window.showbalance=showbalance;
+    </script>
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const paymentMethodSelect = document.getElementById("paymentMethod");
-    const instapayInput = document.getElementById("instapayInput");
-    const walletInput = document.getElementById("walletInput");
-    const bankInputs = document.getElementById("bankInputs");
+        document.addEventListener("DOMContentLoaded", function () {
+            showbalance();
+            document.getElementById("payoutRequestForm").addEventListener("submit", async function (event) {
+                event.preventDefault(); // Prevent the form from submitting the traditional way
+                const paymentMethod = document.getElementById("paymentMethod").value;
+                const payoutAmount = document.getElementById("payoutAmount").value;
+                const uid=localStorage.getItem("uid");
+                let requestData = {
+                    paymentMethod,
+                    payoutAmount,
+                    uid
+                };
 
-    function updateInputFields() {
-        const selectedMethod = paymentMethodSelect.value;
+                if (paymentMethod === "instapay") {
+                    const instapayNumber = document.getElementById("instapayNumber").value;
+                    requestData.instapayNumber = instapayNumber;
+                } else if (paymentMethod === "wallets") {
+                    const walletNumber = document.getElementById("walletNumber").value;
+                    requestData.walletNumber = walletNumber;
+                } else if (paymentMethod === "bank") {
+                    const bankAccountName = document.getElementById("bankAccountName").value;
+                    const bankAccountNumber = document.getElementById("bankAccountNumber").value;
+                    const bankName = document.getElementById("bankName").value;
+                    requestData.bankAccountName = bankAccountName;
+                    requestData.bankAccountNumber = bankAccountNumber;
+                    requestData.bankName = bankName;
+                }
+                addRequestbalance(requestData);
+            });
+            const paymentMethodSelect = document.getElementById("paymentMethod");
+            const instapayInput = document.getElementById("instapayInput");
+            const walletInput = document.getElementById("walletInput");
+            const bankInputs = document.getElementById("bankInputs");
 
-        // Hide all sections initially
-        instapayInput.style.display = "none";
-        walletInput.style.display = "none";
-        bankInputs.style.display = "none";
+            function updateInputFields() {
+                const selectedMethod = paymentMethodSelect.value;
 
-        // Show the appropriate section based on the selected method
-        if (selectedMethod === "instapay") {
-            instapayInput.style.display = "block";
-        } else if (selectedMethod === "wallets") {
-            walletInput.style.display = "block";
-        } else if (selectedMethod === "bank") {
-            bankInputs.style.display = "block";
-        }
-    }
+                // Hide all sections initially
+                instapayInput.style.display = "none";
+                walletInput.style.display = "none";
+                bankInputs.style.display = "none";
 
-    // Attach change event listener to the select element
-    paymentMethodSelect.addEventListener("change", updateInputFields);
+                // Show the appropriate section based on the selected method
+                if (selectedMethod === "instapay") {
+                    instapayInput.style.display = "block";
+                } else if (selectedMethod === "wallets") {
+                    walletInput.style.display = "block";
+                } else if (selectedMethod === "bank") {
+                    bankInputs.style.display = "block";
+                }
+            }
 
-    // Call the function initially in case the selected value is already set
-    updateInputFields();
-});
+            // Attach change event listener to the select element
+            paymentMethodSelect.addEventListener("change", updateInputFields);
+
+            // Call the function initially in case the selected value is already set
+            updateInputFields();
+        });
 
 
-// Optional: Form validation to ensure that the correct fields are filled out before submission
-document.getElementById("payoutRequestForm").addEventListener("submit", function(event) {
-    const selectedMethod = document.getElementById("method").value;
-    const instapayWalletNumber = document.getElementById("instapayWalletNumber").value;
-    const accountName = document.getElementById("accountName").value;
-    const accountNumber = document.getElementById("accountNumber").value;
-    const bankName = document.getElementById("bankName").value;
+        // Optional: Form validation to ensure that the correct fields are filled out before submission
+        document.getElementById("payoutRequestForm").addEventListener("submit", function (event) {
+            const selectedMethod = document.getElementById("method").value;
+            const instapayWalletNumber = document.getElementById("instapayWalletNumber").value;
+            const accountName = document.getElementById("accountName").value;
+            const accountNumber = document.getElementById("accountNumber").value;
+            const bankName = document.getElementById("bankName").value;
 
-    // Validate based on selected method
-    if (selectedMethod === "instapay" || selectedMethod === "wallets") {
-        if (!instapayWalletNumber) {
-            alert("Please enter your Instapay or Wallet number.");
-            event.preventDefault();
-        }
-    } else if (selectedMethod === "bank") {
-        if (!accountName || !accountNumber || !bankName) {
-            alert("Please fill out all bank transfer details.");
-            event.preventDefault();
-        }
-    }
-});
+            // Validate based on selected method
+            if (selectedMethod === "instapay" || selectedMethod === "wallets") {
+                if (!instapayWalletNumber) {
+                    alert("Please enter your Instapay or Wallet number.");
+                    event.preventDefault();
+                }
+            } else if (selectedMethod === "bank") {
+                if (!accountName || !accountNumber || !bankName) {
+                    alert("Please fill out all bank transfer details.");
+                    event.preventDefault();
+                }
+            }
+        });
 
     </script>
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <script type="module">
-        import {  checkifsingedin} from "./js/firebase.js";
-        window.checkifsingedin =checkifsingedin;
-    </script>
+
 </body>
 
 </html>

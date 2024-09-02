@@ -232,7 +232,33 @@
                 </div>
               </div>
             <!-- UGC Content Management End -->
+            <div class="container-fluid pt-4 px-4" id="payoutManagement">
+              <div class="bg-light text-center rounded p-4 mb-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                  <h6 class="mb-0">Payout Request Management</h6>
+                </div>
+                <div class="table-responsive">
+                  <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                      <tr class="text-dark">
+                        <th scope="col">Request ID</th>
+                        <th scope="col">User ID</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Payment Method</th>
+                        <th scope="col">Details</th>
+                        <th scope="col">Statues</th>
+                      </tr>
+                    </thead>
+                    <tbody id="payoutTableBody">
+                      <!-- Dynamic rows will be added here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
             
+
+
         </div>
         <!-- Content End -->
     </div>
@@ -267,13 +293,15 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script type="module">
-        import {  fetchUGCContent } from "./js/firebase.js";
+        import {  fetchUGCContent,fetchwallet } from "./js/firebase.js";
         window.fetchUGCContent= fetchUGCContent;
+        window.fetchwallet=fetchwallet;
     </script>
     <!-- Template Javascript -->
     <script>
 document.addEventListener('DOMContentLoaded', function () {
             fetchUGCContent();
+            fetchwallet();
 });
     </script>
 </body>

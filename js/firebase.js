@@ -192,12 +192,90 @@ async function Countinuecontent(contentID) {
   }
 }
 
-// On your Node.js server (server-side code)
 
+export async function fetchwallet() {
+  try {
+    const requestsCollectionRef = collection(db, "Requests");
+    const requestsSnapshot = await getDocs(requestsCollectionRef);
 
+    const payoutTableBody = document.getElementById("payoutTableBody");
 
+    payoutTableBody.innerHTML = ""; // Clear existing rows
 
+    requestsSnapshot.forEach((doc) => {
+      const data = doc.data();
+      const requestID = doc.id;
+      const amount = data.payoutAmount || "N/A";
+      const paymentMethod = data.paymentMethod || "Unknown";
+      let details = "";
 
+      // Display details based on the payment method
+      if (paymentMethod === "instapay") {
+        details = `Instapay Number: ${data.instapayNumber || "N/A"}`;
+      } else if (paymentMethod === "wallets") {
+        details = `Wallet Number: ${data.walletNumber || "N/A"}`;
+      } else if (paymentMethod === "bank") {
+        details = `
+          Bank Name: ${data.bankName || "N/A"}<br>
+          Account Name: ${data.bankAccountName || "N/A"}<br>
+          Account Number: ${data.bankAccountNumber || "N/A"}
+        `;
+      }
+
+      const status = data.status || "Pending"; // Default to "Pending" if no status
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${requestID}</td>
+        <td>${data.uid}</td>
+        <td>${amount}</td>
+        <td>${paymentMethod}</td>
+        <td>${details}</td>
+        <td id="status-cell-${requestID}"></td>
+      `;
+
+      const actionCell = row.querySelector(`#status-cell-${requestID}`);
+
+      if (status === "approved") {
+        actionCell.textContent = "Approved";
+      } else if (status === "rejected") {
+        actionCell.textContent = "Rejected";
+      } else {
+        // Create buttons for approving and rejecting
+        actionCell.innerHTML = `
+          <button class="btn btn-sm btn-success" data-action="approve" data-id="${requestID}">Approve</button>
+          <button class="btn btn-sm btn-danger" data-action="reject" data-id="${requestID}">Reject</button>
+        `;
+
+        // Attach event listeners after adding buttons to the DOM
+        actionCell.querySelector(`[data-action="approve"]`).addEventListener("click", async () => {
+          await updateRequestStatus(requestID, "approved");
+        });
+
+        actionCell.querySelector(`[data-action="reject"]`).addEventListener("click", async () => {
+          await updateRequestStatus(requestID, "rejected");
+        });
+      }
+
+      payoutTableBody.appendChild(row);
+    });
+  } catch (error) {
+    console.error("Error fetching payout requests: ", error);
+  }
+}
+
+// Function to update the status of a request in Firestore
+async function updateRequestStatus(requestID, newStatus) {
+  try {
+    const requestDocRef = doc(db, "Requests", requestID);
+    await updateDoc(requestDocRef, { status: newStatus });
+    console.log(`Request ${requestID} status updated to ${newStatus}`);
+    // Reload the table after the update
+    fetchwallet();
+  } catch (error) {
+    console.error("Error updating request status: ", error);
+  }
+}
 
 export async function fetchUGCContent() {
   try {
@@ -309,7 +387,7 @@ export async function signInWithGoogle() {
     var username = user.displayName;
     const creationTime = user.metadata.creationTime;
 
-    await addDataToFirestore({ emails, username,creationTime }, "ugc", user.uid);
+    await addDataToFirestore2({ emails, username,creationTime }, "ugc", user.uid);
     // Store user info in localStorage or your desired state management
     localStorage.setItem("uid", user.uid);
     localStorage.setItem("email", user.email);
@@ -630,7 +708,29 @@ export async function fetchUserReels(uid) {
     console.error("Error fetching user data: ", error);
   }
 }
+export async function showbalance() {
+  try {
+    checkifsingedin();
+    const uid= localStorage.getItem("uid")
+    const userDocRef = doc(db, "Requests", uid); // Assuming "Requests" contains user balance info
+    const userDocSnap = await getDoc(userDocRef);
 
+    if (userDocSnap.exists()) {
+      const data = userDocSnap.data();
+      const currentBalance = data.currentBalance || 0; // Default to 0 if not found
+
+      // Display the balance in the HTML
+      const balanceElement = document.getElementById("currentBalance");
+      balanceElement.textContent = `$${currentBalance}`;
+    } else {
+      console.error("No such document!");
+    }
+  } catch (error) {
+    console.error("Error fetching current balance: ", error);
+    const balanceElement = document.getElementById("currentBalance");
+    balanceElement.textContent = "Error fetching balance";
+  }
+}
 export async function fetchUserData(uid) {
   try {
     const userDocRef = doc(db, "ugc", uid);
@@ -706,7 +806,21 @@ export async function fetchUserData(uid) {
   }
 }
 // Function to add data to Firestore
-export async function addDataToFirestore(data, tabelname, uid,) {
+
+export async function addDataToFirestore(data, tabelname) {
+  try {
+    // Get a reference to the collection
+    const colRef = collection(db, tabelname);
+
+    // Add a new document with a generated ID
+    const docRef = await addDoc(colRef, data);
+
+    console.log("Document successfully written with ID:", docRef.id);
+  } catch (error) {
+    console.error("Error adding document:", error);
+  }
+}
+export async function addDataToFirestore2(data, tabelname, uid) {
   // alert("Attempting to add document...");
   try {
     const docRef = doc(db, tabelname, uid);
@@ -719,10 +833,22 @@ export async function addDataToFirestore(data, tabelname, uid,) {
     console.error("Error adding document:", error);
   }
 }
-async function containsProsCom(email) {
-  const regex = /@pros\.com$/;
-  return regex.test(email);
+
+export async function addRequestbalance(data) {
+
+  try {
+    checkifsingedin();
+    const requestsCollectionRef = collection(db, "Requests");
+
+    // Add a new document with a generated ID
+    const docRef = await addDoc(requestsCollectionRef, data);
+    alert("Document successfully written! "+docRef.id);
+    window.location.reload()
+  } catch (error) {
+    console.error("Error adding document:", error);
+  }
 }
+
 // Function to create a new user with email and password
 export async function createNewUser(email, password, username) {
   try {
@@ -741,24 +867,14 @@ export async function createNewUser(email, password, username) {
     const seconds = String(now.getSeconds()).padStart(2, '0');
     
     const CreationTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    try{
       
-      if (!containsProsCom(email)) {
-        console.log(CreationTime);
-        await addDataToFirestore({ email, username,CreationTime }, "ugc");
-      } else {
-        await addDataToFirestore({ email, username,CreationTime}, "users");
-        console.log(email,username);
-      }
-    }catch (error) {
-      alert("Error creating new user: " + error.message);
-    }
+    await addDataToFirestore({ email, username,CreationTime }, "ugc");
     alert("User created successfully");
     localStorage.setItem("uid", user.uid);
     localStorage.setItem("email", email);
     localStorage.setItem("username", username); // Store the username
 
-    window.location.href = "./index.html";
+    // window.location.href = "./index.html";
   } catch (error) {
     alert("Error creating new user: " + error.message);
     window.location.reload();
