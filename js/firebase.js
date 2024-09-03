@@ -24,8 +24,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword, 
-  deleteUser, reauthenticateWithCredential, EmailAuthProvider,
-  signInWithEmailAndPassword,
+  signInWithEmailAndPassword,signOut,
   sendPasswordResetEmail,
 } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
 
@@ -345,7 +344,7 @@ export async function fetchUGCContent() {
             .getElementById(`hold-${contentID}`)
             .addEventListener("click", async () => {
               await holdContent(contentID);
-              window.location.reload();
+              fetchUGCContent();
               
             });
           }else{
@@ -353,7 +352,7 @@ export async function fetchUGCContent() {
             .getElementById(`countinue-${contentID}`)
             .addEventListener("click", async () => {
               await Countinuecontent(contentID);
-              window.location.reload();
+              fetchUGCContent();
               
             });
           }
@@ -363,7 +362,7 @@ export async function fetchUGCContent() {
           .getElementById(`approve-${contentID}`)
           .addEventListener("click", async () => {
             await approveContent(contentID);
-            window.location.reload();
+            fetchUGCContent();
             
           });
       }
@@ -587,7 +586,6 @@ export async function fetchverifydata(uid) {
             regionSelect.innerHTML = `<option value="">${userData.region}</option>`;
           }
 
-          // Add new options based on selected country
           countryRegions.forEach(function (region) {
             const option = document.createElement("option");
             option.value = region.toLowerCase().replace(/\s+/g, "");
@@ -807,19 +805,20 @@ export async function fetchUserData(uid) {
 }
 // Function to add data to Firestore
 
-export async function addDataToFirestore(data, tabelname) {
+export async function addDataToFirestore(data, tableName) {
   try {
     // Get a reference to the collection
-    const colRef = collection(db, tabelname);
-
+    const colRef = collection(db, tableName);
+    
     // Add a new document with a generated ID
     const docRef = await addDoc(colRef, data);
 
-    console.log("Document successfully written with ID:", docRef.id);
+    alert("Document successfully written with ID: "+ docRef.id);
   } catch (error) {
-    console.error("Error adding document:", error);
+    alert("Error adding document: "+ error);
   }
 }
+
 export async function addDataToFirestore2(data, tabelname, uid) {
   // alert("Attempting to add document...");
   try {
@@ -850,36 +849,25 @@ export async function addRequestbalance(data) {
 }
 
 // Function to create a new user with email and password
-export async function createNewUser(email, password, username) {
+export async function createNewUser(email, password, username, phone) {
   try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    await signOut(auth);
+    const userCredential = await createUserWithEmailAndPassword(auth,email, password);
     const user = userCredential.user;
-    const now = new Date();  // Create a new Date object
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-    const day = String(now.getDate()).padStart(2, '0');
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    
-    const CreationTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-      
-    await addDataToFirestore({ email, username,CreationTime }, "ugc");
-    alert("User created successfully");
-    localStorage.setItem("uid", user.uid);
-    localStorage.setItem("email", email);
-    localStorage.setItem("username", username); // Store the username
 
-    // window.location.href = "./index.html";
+    const now = new Date();
+    const creationTime = now.toISOString(); // Using ISO format for consistency
+
+    // Add user data to Firestore with the correct UID
+    await addDataToFirestore2({ email, username, creationTime, phone }, "ugc",user.uid);
+
+    alert("User created successfully");
   } catch (error) {
     alert("Error creating new user: " + error.message);
-    window.location.reload();
+    console.error("Error creating new user: ", error.message);
   }
 }
+
 export async function signInUser(email, password, checkbox) {
   try {
     // Await the signInWithEmailAndPassword function
