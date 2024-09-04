@@ -23,8 +23,9 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword,signOut,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
   sendPasswordResetEmail,
 } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
 
@@ -105,9 +106,9 @@ export async function fetchPackageData(uid, packageType) {
 // Function to handle content viewing
 function viewContent(contentID, data) {
   const modalContent = document.getElementById("modalContent");
-  
+
   // Clear the modal content before displaying new data
-  modalContent.innerHTML = '';
+  modalContent.innerHTML = "";
 
   // Function to create a labeled input dynamically
   function createLabeledInput(name, value, type = "text") {
@@ -117,32 +118,34 @@ function viewContent(contentID, data) {
     const label = document.createElement("label");
     label.for = name;
     label.className = "form-label";
-    label.textContent = name.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+    label.textContent = name
+      .replace(/([A-Z])/g, " $1")
+      .replace(/^./, (str) => str.toUpperCase());
 
     const input = document.createElement("input");
     input.type = type;
     input.name = name;
     input.value = value;
-    input.disabled= true;
+    input.disabled = true;
     input.className = "form-control";
 
     // Append label and input to the wrapper div
     wrapper.appendChild(label);
     wrapper.appendChild(input);
-    
+
     return wrapper;
   }
 
   // Iterate over data to create labeled inputs dynamically
-  Object.keys(data).forEach(key => {
-    if (typeof data[key] === 'object' && data[key] !== null) {
-      Object.keys(data[key]).forEach(subKey => {
+  Object.keys(data).forEach((key) => {
+    if (typeof data[key] === "object" && data[key] !== null) {
+      Object.keys(data[key]).forEach((subKey) => {
         const value = data[key][subKey];
-        if (typeof value === 'string' || typeof value === 'number') {
+        if (typeof value === "string" || typeof value === "number") {
           modalContent.appendChild(createLabeledInput(subKey, value));
         }
       });
-    } else if (typeof data[key] === 'string' || typeof data[key] === 'number') {
+    } else if (typeof data[key] === "string" || typeof data[key] === "number") {
       modalContent.appendChild(createLabeledInput(key, data[key]));
     }
   });
@@ -151,7 +154,6 @@ function viewContent(contentID, data) {
   const modal = new bootstrap.Modal(document.getElementById("viewModal"));
   modal.show();
 }
-
 
 // Function to handle content approval
 async function approveContent(contentID) {
@@ -162,7 +164,7 @@ async function approveContent(contentID) {
     });
     alert(`Content ${contentID} approved!`);
   } catch (error) {
-    alert("Error approving content: "+ error);
+    alert("Error approving content: " + error);
   }
 }
 async function holdContent(contentID) {
@@ -174,7 +176,7 @@ async function holdContent(contentID) {
     alert(`Content ID ${contentID} is now on hold.`);
     // Optionally, you can refresh the table or provide feedback to the user
   } catch (error) {
-    alert("Error putting content on hold: "+ error);
+    alert("Error putting content on hold: " + error);
   }
 }
 
@@ -187,10 +189,9 @@ async function Countinuecontent(contentID) {
     alert(`Content ID ${contentID} is now countinued.`);
     // Optionally, you can refresh the table or provide feedback to the user
   } catch (error) {
-    alert("Error putting content on hold: "+ error);
+    alert("Error putting content on hold: " + error);
   }
 }
-
 
 export async function fetchwallet() {
   try {
@@ -247,13 +248,17 @@ export async function fetchwallet() {
         `;
 
         // Attach event listeners after adding buttons to the DOM
-        actionCell.querySelector(`[data-action="approve"]`).addEventListener("click", async () => {
-          await updateRequestStatus(requestID, "approved");
-        });
+        actionCell
+          .querySelector(`[data-action="approve"]`)
+          .addEventListener("click", async () => {
+            await updateRequestStatus(requestID, "approved");
+          });
 
-        actionCell.querySelector(`[data-action="reject"]`).addEventListener("click", async () => {
-          await updateRequestStatus(requestID, "rejected");
-        });
+        actionCell
+          .querySelector(`[data-action="reject"]`)
+          .addEventListener("click", async () => {
+            await updateRequestStatus(requestID, "rejected");
+          });
       }
 
       payoutTableBody.appendChild(row);
@@ -291,9 +296,7 @@ export async function fetchUGCContent() {
       const data = doc.data();
       const contentID = doc.id;
       const creator = data.username || "Unknown";
-      const createdAt = data.creationTime
-        ? data.creationTime
-        : "Unknown";
+      const createdAt = data.creationTime ? data.creationTime : "Unknown";
 
       const row = document.createElement("tr");
       row.innerHTML = `
@@ -335,7 +338,6 @@ export async function fetchUGCContent() {
         .getElementById(`view-${contentID}`)
         .addEventListener("click", () => {
           viewContent(contentID, data);
-          
         });
 
       if (data.status === "approved" || data.status === "hold") {
@@ -345,25 +347,21 @@ export async function fetchUGCContent() {
             .addEventListener("click", async () => {
               await holdContent(contentID);
               fetchUGCContent();
-              
             });
-          }else{
-            document
+        } else {
+          document
             .getElementById(`countinue-${contentID}`)
             .addEventListener("click", async () => {
               await Countinuecontent(contentID);
               fetchUGCContent();
-              
             });
-          }
-        } else {
-
-          document
+        }
+      } else {
+        document
           .getElementById(`approve-${contentID}`)
           .addEventListener("click", async () => {
             await approveContent(contentID);
             fetchUGCContent();
-            
           });
       }
     });
@@ -386,8 +384,23 @@ export async function signInWithGoogle() {
     var username = user.displayName;
     const creationTime = user.metadata.creationTime;
 
-    await addDataToFirestore2({ emails, username,creationTime }, "ugc", user.uid);
+    await addDataToFirestore2(
+      { emails, username, creationTime },
+      "ugc",
+      user.uid
+    );
     // Store user info in localStorage or your desired state management
+
+    const q2 = query(collection(db, "ugc"), where("emails", "==", emails));
+    const querySnapshot2 = await getDocs(q2);
+    if (!querySnapshot2.empty) {
+      querySnapshot2.forEach((doc) => {
+        let isAdmin = doc.data().isAdmin || false; // Check if the user is an admin
+        if (isAdmin) {
+          localStorage.setItem("isAdmin", isAdmin); // Store the isAdmin status
+        }
+      });
+    }
     localStorage.setItem("uid", user.uid);
     localStorage.setItem("email", user.email);
     localStorage.setItem("username", user.displayName);
@@ -422,8 +435,6 @@ export async function saveReelsData(uid, videos) {
     }
 
     reelData.videoURLs = videoURLs;
-    reelData.reels = 50;
-    localStorage.setItem("reels", 50);
     const userDocRef = doc(db, "ugc", uid);
     await setDoc(userDocRef, reelData, { merge: true });
   } catch (error) {
@@ -446,7 +457,6 @@ export async function saveUserData(uid, userData, imageUpload, isnewimg) {
     }
     const userDocRef = doc(db, "ugc", uid);
     await setDoc(userDocRef, userData, { merge: true });
-    localStorage.setItem("BasicInfo", 50);
 
     alert("User data successfully saved!");
     window.location.reload();
@@ -489,8 +499,6 @@ export async function saveVerify(
 
     const userDocRef = doc(db, "ugc", uid);
     await setDoc(userDocRef, userData, { merge: true });
-    localStorage.setItem("verify", 100);
-
     alert("User data successfully saved!");
     window.location.reload();
   } catch (error) {
@@ -689,7 +697,6 @@ export async function fetchUserReels(uid) {
               beforeUpload.style.display = "none";
               afterUpload.style.display = "block";
             }
-            localStorage.setItem("reels", 50);
           } else {
             console.error(
               `Video element with ID 'uploaded-video${index + 1}' not found`
@@ -709,8 +716,8 @@ export async function fetchUserReels(uid) {
 export async function showbalance() {
   try {
     checkifsingedin();
-    const uid= localStorage.getItem("uid")
-    const userDocRef = doc(db, "Requests", uid); // Assuming "Requests" contains user balance info
+    const uid = localStorage.getItem("uid");
+    const userDocRef = doc(db, "ugc", uid); // Assuming "Requests" contains user balance info
     const userDocSnap = await getDoc(userDocRef);
 
     if (userDocSnap.exists()) {
@@ -795,7 +802,6 @@ export async function fetchUserData(uid) {
           }
         }
       }
-      localStorage.setItem("BasicInfo", 50);
     } else {
       console.log("No such document!");
     }
@@ -809,75 +815,92 @@ export async function addDataToFirestore(data, tableName) {
   try {
     // Get a reference to the collection
     const colRef = collection(db, tableName);
-    
+
     // Add a new document with a generated ID
     const docRef = await addDoc(colRef, data);
 
-    alert("Document successfully written with ID: "+ docRef.id);
+    alert("Document successfully written with ID: " + docRef.id);
   } catch (error) {
-    alert("Error adding document: "+ error);
+    alert("Error adding document: " + error);
   }
 }
 
 export async function addDataToFirestore2(data, tabelname, uid) {
-  // alert("Attempting to add document...");
   try {
     const docRef = doc(db, tabelname, uid);
     await setDoc(docRef, data, { merge: true });
-    // alert("Document written with ID: " + docRef.id);
-    console.log("Document successfully written!", docRef.id);
-    // window.location.reload();
+    console.log("Document successfully written!");
   } catch (error) {
-    // alert("Error adding document: " + error.message);
     console.error("Error adding document:", error);
+    throw error; // Propagate the error to handle it in createNewUser
   }
 }
 
 export async function addRequestbalance(data) {
-
   try {
     checkifsingedin();
     const requestsCollectionRef = collection(db, "Requests");
 
     // Add a new document with a generated ID
     const docRef = await addDoc(requestsCollectionRef, data);
-    alert("Document successfully written! "+docRef.id);
-    window.location.reload()
+    alert("Document successfully written! " + docRef.id);
+    window.location.reload();
   } catch (error) {
     console.error("Error adding document:", error);
   }
 }
 
-// Function to create a new user with email and password
-export async function createNewUser(email, password, username, phone) {
+export async function createNewUser(emails, password, username) {
+  let user = null;
   try {
-    await signOut(auth);
-    const userCredential = await createUserWithEmailAndPassword(auth,email, password);
-    const user = userCredential.user;
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      emails,
+      password
+    );
+    user = userCredential.user;
 
     const now = new Date();
     const creationTime = now.toISOString(); // Using ISO format for consistency
 
-    // Add user data to Firestore with the correct UID
-    await addDataToFirestore2({ email, username, creationTime, phone }, "ugc",user.uid);
+    // Attempt to add user data to Firestore with the correct UID
+    await addDataToFirestore2(
+      { emails, username, creationTime },
+      "ugc",
+      user.uid
+    );
 
     alert("User created successfully");
+    window.location.href = "./signin.html";
   } catch (error) {
-    alert("Error creating new user: " + error.message);
     console.error("Error creating new user: ", error.message);
+    alert("Error creating new user: " + error.message);
+
+    // Rollback user creation if Firestore operation fails
+    if (user) {
+      try {
+        await user; // This deletes the user if Firestore operation fails
+        console.log("User deleted due to Firestore error");
+      } catch (deleteError) {
+        console.error(
+          "Error deleting user after Firestore failure:",
+          deleteError.message
+        );
+      }
+    }
   }
 }
 
 export async function signInUser(email, password, checkbox) {
   try {
-    // Await the signInWithEmailAndPassword function
+    // Sign in the user with email and password
     const userCredential = await signInWithEmailAndPassword(
       auth,
       email,
       password
     );
 
-    // Check if the user successfully signed in
+    // Proceed if the user successfully signed in
     if (userCredential) {
       const user = userCredential.user;
 
@@ -886,19 +909,31 @@ export async function signInUser(email, password, checkbox) {
 
       // Query Firestore to get the username
       const q = query(collection(db, "users"), where("email", "==", email));
+      const q2 = query(collection(db, "ugc"), where("email", "==", email));
       const querySnapshot = await getDocs(q);
+      const querySnapshot2 = await getDocs(q2);
 
       let username = "";
       if (!querySnapshot.empty) {
-        const userDoc = querySnapshot.docs[0];
-        username = userDoc.data().username;
+        querySnapshot.forEach((doc) => {
+          username = doc.data().username || "Unknown"; // Fallback if username is undefined
+        });
+      } else if (!querySnapshot2.empty) {
+        alert("23");
+        querySnapshot2.forEach((doc) => {
+          username = doc.data().username || "Unknown"; // Fallback if username is undefined
+          isAdmin = doc.data().isAdmin || false; // Check if the user is an admin
+          alert(isAdmin);
+          localStorage.setItem("isAdmin", isAdmin); // Store the isAdmin status
+        });
+      } else {
+        console.warn("No user document found with the provided email.");
       }
 
       // If the checkbox is checked, store user details in localStorage
-        localStorage.setItem("uid", user.uid);
-        localStorage.setItem("email", user.email);
-        localStorage.setItem("username", username); // Store the username
-
+      localStorage.setItem("uid", user.uid);
+      localStorage.setItem("email", user.emails);
+      localStorage.setItem("username", username); // Store the username
       // Notify the user of successful sign-in
       alert("User signed in successfully: " + username);
       window.location.reload();
@@ -930,7 +965,7 @@ export async function checkifsingedin() {
     const storedEmail = localStorage.getItem("email");
     const storedusername = localStorage.getItem("username");
     // Check if the user is signed in by retrieving the current user
-    auth.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged(async (user) => {
       if (user) {
         // User is signed in, check if the stored UID matches the current user's UID
         if (user.uid === storedUID) {
@@ -942,11 +977,41 @@ export async function checkifsingedin() {
           ) {
             window.location.href = "./index.html";
           }
+          const userProperties = {
+            basicInfo: "BasicInfo",
+            reels: "reels",
+            verify: "verify",
+            preelData: "reelData",
+          };
+          const q2 = query(
+            collection(db, "ugc"),
+            where("emails", "==", user.email)
+          );
+          const querySnapshot2 = await getDocs(q2);
+          if (!querySnapshot2.empty) {
+            querySnapshot2.forEach((doc) => {
+              let userd = doc.data();
+              for (const [key, value] of Object.entries(userProperties)) {
+                if (userd[key] !== undefined) {
+                  localStorage.setItem(value, 50);
+                }
+              }
+              let isAdmin = doc.data().isAdmin || false; // Check if the user is an admin
+              if (window.location.href.includes("admin_panel") && !isAdmin) {
+                window.location.href = "../index.html";
+              }
+            });
+          }
+
           userEmailDiv.textContent = `${storedusername}`;
           userEmailDiv2.textContent = `${storedusername}`;
           if (user.photoURL) {
             var profilePicUrl = user.photoURL;
             // imgElement.style.display = 'block';
+            imgElement.src = profilePicUrl;
+            imgElement2.src = profilePicUrl;
+          } else if (user.basicInfo.imageURL) {
+            var profilePicUrl = user.basicInfo.imageURL;
             imgElement.src = profilePicUrl;
             imgElement2.src = profilePicUrl;
           }
@@ -955,6 +1020,7 @@ export async function checkifsingedin() {
           console.error(
             "UID mismatch: Stored UID does not match current user."
           );
+
           // Optionally, you could sign the user out:
           if (
             !window.location.href == "/signin.html" ||
@@ -987,6 +1053,9 @@ export async function checkifsingedin() {
       window.location.href.includes("signup.html")
     ) {
     } else {
+      localStorage.clear();
+      auth.signOut();
+      window.location.href = "./signup.html";
       window.location.href = "./signin.html"; // Redirect to signin.html if the page is neither
     }
   }

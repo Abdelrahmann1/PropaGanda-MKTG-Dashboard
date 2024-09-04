@@ -9,7 +9,7 @@
   <meta content="" name="description">
 
   <!-- Favicon -->
-  <link href="img/favicon.ico" rel="icon">
+  <link href="../img/favicon.ico" rel="icon">
 
   <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,14 +21,14 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
   <!-- Libraries Stylesheet -->
-  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+  <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
   <!-- Customized Bootstrap Stylesheet -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Template Stylesheet -->
-  <link href="css/style.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -48,7 +48,7 @@
       <nav class="navbar bg-light navbar-light">
         <div class="d-flex align-items-center ms-4 mb-4">
           <div class="position-relative">
-            <img class="rounded-circle profile-pic" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+            <img class="rounded-circle profile-pic" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
             <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
             </div>
           </div>
@@ -80,7 +80,7 @@
         <div class="navbar-nav align-items-center ms-auto">
           <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-              <img class="rounded-circle me-lg-2 profile-pic" src="img/user.jpg" alt="" id="profile-pic"
+              <img class="rounded-circle me-lg-2 profile-pic" src="../img/user.jpg" alt="" id="profile-pic"
                 style="width: 40px; height: 40px;">
               <span class="d-none d-lg-inline-flex userEmail" id="userEmail">Abdelrhmann</span>
             </a>
@@ -91,7 +91,7 @@
         </div>
       </nav>
       <!-- Navbar End -->
-      <div class="container-fluid pt-4 px-4" id="clientManagementSection">
+      <!-- <div class="container-fluid pt-4 px-4" id="clientManagementSection">
         <div class="bg-light text-center rounded p-4 pb-5 mb-4">
           <div class="d-flex align-items-center justify-content-between mb-4">
             <h6 class="mb-0">Client Management</h6>
@@ -131,20 +131,18 @@
                     </td>
                   </tr>
                 </form>
-                <!-- More rows can be added dynamically -->
               </tbody>
             </table>
           </div>
         </div>
-      </div>
-      <div class="container-fluid pt-4 px-4" id="clientManagementSection">
+      </div> -->
+      <!-- <div class="container-fluid pt-4 px-4" id="clientManagementSection">
         <div class="bg-light text-center rounded p-4 mb-4">
           <div class="d-flex align-items-center justify-content-between mb-4">
             <h6 class="mb-0">Client Management</h6>
             <button id="toggleClientFormBtn" class="btn btn-primary">Add New Client</button>
           </div>
 
-          <!-- Sign-Up Form -->
           <div id="clientSignUpForm" style="display:none;">
             <div class="mb-3">
               <label for="clientName" class="form-label">Name</label>
@@ -186,12 +184,11 @@
                   <td>Beta Ltd</td>
                   <td>7</td>
                 </tr>
-                <!-- More rows can be added dynamically -->
               </tbody>
             </table>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- UGC Content Management Start -->
       <div class="container-fluid pt-4 px-4" id="ugcManagement">
@@ -291,54 +288,26 @@
   <!-- JavaScript Libraries -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="lib/chart/chart.min.js"></script>
-  <script src="lib/easing/easing.min.js"></script>
-  <script src="lib/waypoints/waypoints.min.js"></script>
-  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="lib/tempusdominus/js/moment.min.js"></script>
-  <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-  <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+  <script src="../lib/chart/chart.min.js"></script>
+  <script src="../lib/easing/easing.min.js"></script>
+  <script src="../lib/waypoints/waypoints.min.js"></script>
+  <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="../lib/tempusdominus/js/moment.min.js"></script>
+  <script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+  <script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
   <!-- Template Javascript -->
-  <script src="js/main.js"></script>
+  <script src="../js/main.js"></script>
   <script type="module">
-    import { fetchUGCContent, fetchwallet, createNewUser } from "./js/firebase.js";
+    import { fetchUGCContent, fetchwallet } from "../js/firebase.js";
     window.fetchUGCContent = fetchUGCContent;
     window.fetchwallet = fetchwallet;
-    window.createNewUser = createNewUser;
   </script>
   <!-- Template Javascript -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       fetchUGCContent();
       fetchwallet();
-    });
-    function validatePassword(password) {
-      // At least 6 characters, one special character, and one number
-      const re = /^(?=.*\d)[A-Za-z\d!@#$%^&*]{6,}$/;
-      return re.test(password);
-    }
-    document.getElementById('singform').addEventListener('submit', function () {
-      event.preventDefault();
-      const name = document.getElementById('signName').value;
-      const email = document.getElementById('signEmail').value;
-      const phone = document.getElementById('signPhone').value;
-      const password = document.getElementById('signPassword').value;
-      isValid = true;
-
-      if (!validatePassword(password)) {
-        isValid = false;
-        errorMessage.style.display = 'block';
-        return;
-      }
-      else {
-        errorMessage.style.display = 'none';
-        createNewUser(email, password, name, phone);
-      }
-      document.getElementById('signPassword').value = '';
-      document.getElementById('signName').value = '';
-      document.getElementById('signEmail').value = '';
-      document.getElementById('signPhone').value = '';
     });
 
   </script>

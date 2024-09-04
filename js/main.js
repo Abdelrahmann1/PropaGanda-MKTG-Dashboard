@@ -148,9 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-
-})
-document.addEventListener('DOMContentLoaded', function () {
     // Determine the current page
     const path = window.location.pathname;
     const isProfilePage = path === "/createProfile.html";
@@ -205,6 +202,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (localStorage.getItem('standardpackage') && localStorage.getItem('basicpackage')&& localStorage.getItem('premiumpackage')) {
         localStorage.setItem('packageDone',true);
     }
+    if (localStorage.getItem('verify')) {
+        localStorage.setItem('verifyDone',true);
+    }
     updateProgressIcons();
 
 });
@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function updateProgressIcons() {
     // Get the progress status from localStorage
     const isBasicDone = localStorage.getItem('createDone') === 'true';
-    const isStandardDone = localStorage.getItem('verify') === 'true';
+    const isStandardDone = localStorage.getItem('verifyDone') === 'true';
     const isPremiumDone = localStorage.getItem('packageDone') === 'true';
     
     // Update icons for Basic Package
